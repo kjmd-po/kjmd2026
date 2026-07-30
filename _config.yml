@@ -17,14 +17,14 @@ minimal_mistakes_skin    : "aqua" # "default", "air", "aqua", "contrast", "dark"
 # Site Settings
 locale                   : "ko-KR"
 rtl                      : # true, false (default) # turns direction of the page into right to left for RTL languages
-title                    : "KJMD 2025"
+title                    : "KJMD 2026"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
-name                     : "KJMD 2025"
-description              : "The webiste for the KJMD 2025 conference."
+name                     : "KJMD 2026"
+description              : "The website for the KJMD 2026 conference."
 url                      : https://kjmd-po.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
-baseurl                  : "/kjmd2025"
-repository               : kjmd-po/kjmd2025 # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
+baseurl                  : "/kjmd2026"
+repository               : kjmd-po/kjmd2026 # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : "/assets/images/kjmd_logo.png" # path of logo image to display in the masthead
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
