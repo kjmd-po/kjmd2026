@@ -53,7 +53,7 @@ layout: default
 
           .sched-row {
             display: grid;
-            grid-template-columns: 150px 200px 1fr;
+            grid-template-columns: 145px 250px 1fr;
             gap: 1.5rem;
             align-items: baseline;
             padding: 1.15rem 0;
@@ -111,7 +111,13 @@ layout: default
             <li class="sched-row{% if row.highlight %} is-feature{% endif %}">
               <span class="sched-time">{{ row.time }}</span>
               <span class="sched-session">{{ row.session }}</span>
-              <span class="sched-detail">{{ row.details }}</span>
+              <span class="sched-detail">
+                {%- if row.link -%}
+                  <a href="{{ row.link | relative_url }}">{{ row.details }}</a>
+                {%- else -%}
+                  {{ row.details }}
+                {%- endif -%}
+              </span>
             </li>
 
             {% if forloop.last %}</ul>{% endif %}

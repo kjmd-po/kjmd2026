@@ -1,35 +1,67 @@
-# Program structure, rendered as a single combined table.
-# Each entry is one row. `day` starts a new day group; rows sharing a day
-# are grouped under it automatically.
-- day: "Oct. 30 (Fri)"
-  time: "To be announced"
+# Program structure, rendered as one continuous schedule grouped by day.
+#
+#   day       — starts a new day group
+#   time      — displayed as given
+#   session   — the short label in the middle column
+#   details   — free text; may contain HTML (e.g. a link)
+#   highlight — marks the substance of the day (keynote, talks) in the accent
+- day: "October 30 (Fri)"
+  time: "16:00 – 17:00"
   session: "Registration"
-  details: "To be announced"
 
-- day: "Oct. 30 (Fri)"
-  time: "To be announced"
-  session: "Opening"
-  details: "To be announced"
-  highlight: true
+- day: "October 30 (Fri)"
+  time: "17:00 – 18:00"
+  session: "Welcome & Overview"
 
-- day: "Oct. 30 (Fri)"
-  time: "To be announced"
+- day: "October 30 (Fri)"
+  time: "18:00 – 20:00"
+  session: "Welcome Reception"
+
+- day: "October 31 (Sat)"
+  time: "09:30 – 10:30"
   session: "Keynote"
-  details: "To be announced"
+  details: "Prof. Sourav S. Bhowmick"
+  link: /keynotes/
   highlight: true
 
-- day: "Oct. 31 (Sat)"
-  time: "To be announced"
-  session: "Oral"
-  details: "To be announced"
+- day: "October 31 (Sat)"
+  time: "10:40 – 11:40"
+  session: "Oral Session #1"
   highlight: true
 
-- day: "Oct. 31 (Sat)"
-  time: "To be announced"
+- day: "October 31 (Sat)"
+  time: "11:40 – 13:00"
+  session: "Lunch Break"
+
+- day: "October 31 (Sat)"
+  time: "13:00 – 14:30"
   session: "Poster Session"
-  details: "To be announced"
+  highlight: true
 
-- day: "Nov. 1 (Sun)"
-  time: "To be announced"
-  session: "Closing"
-  details: "To be announced"
+- day: "October 31 (Sat)"
+  time: "14:30 – 15:00"
+  session: "Coffee & Networking"
+
+- day: "October 31 (Sat)"
+  time: "15:00 – 18:00"
+  session: "Brainstorming"
+  details: "On the future of AI database systems"
+  highlight: true
+
+- day: "November 1 (Sun)"
+  time: "09:30 – 11:20"
+  session: "Oral Session #2"
+  highlight: true
+
+- day: "November 1 (Sun)"
+  time: "11:20 – 13:30"
+  session: "Lunch Break"
+
+- day: "November 1 (Sun)"
+  time: "13:30 – 16:00"
+  session: "BoF Session"
+  highlight: true
+
+- day: "November 1 (Sun)"
+  time: "16:00 – 18:00"
+  session: "Business Meeting"

@@ -1,10 +1,35 @@
 # Keynote speakers.
-# `abstract` and `bio` accept a list of paragraphs.
-- speaker: "To be announced"
-  affiliation: "To be announced"
+# `abstract` and `bio` each take a list of paragraphs.
+- speaker: "Sourav S. Bhowmick"
+  honorific: "Prof."
+  affiliation: "Nanyang Technological University, Singapore"
+  url: "https://personal.ntu.edu.sg/assourav/"
   title: "To be announced"
-  photo: # e.g. /assets/images/keynotes/speaker.jpg
+  photo: /assets/images/dr_bhowmick.jpg
   abstract:
     - "To be announced."
   bio:
-    - "To be announced."
+    - >-
+      Sourav S. Bhowmick is an Associate Professor in the College of Computing &
+      Data Science (CCDS), Nanyang Technological University, Singapore. His
+      research interests are in data management, human-data interaction, and
+      data analytics. He is best known for his contributions to human-centered
+      data management research and technology, and computational
+      conflict-of-interest (COI) management. His research has appeared in
+      premium venues, including ACM SIGMOD, VLDB, CACM, and the VLDB Journal,
+      with several contributions adopted in practice. He co-received Best Paper
+      Awards at ACM CIKM 2004, ACM BCB 2011, VLDB 2021, and ER 2023, as well as
+      the Best Demonstration Honorable Mention Award at ACM SIGMOD 2026.
+    - >-
+      Sourav has served/serving as a program chair/co-chair of several
+      international conferences such as SIGMOD 2027, EDBT 2023, and ACM CIKM
+      2020. He is serving as a member of the SIGMOD Executive Committee, SIGMOD
+      Awards Committee, a regular member of the PVLDB Advisory Board, and an
+      elected trustee of the VLDB Endowment.
+    - >-
+      He is a co-recipient of several service awards including VLDB Service
+      Award in 2018; Distinguished AE Award in SIGMOD 2021, SIGMOD 2023, VLDB
+      2022 and EDBT 2025; and Distinguished Reviewer Award in VLDB 2020, VLDB
+      2023, and VLDB 2025. He was inducted into the Distinguished Members of the
+      ACM in 2020.
+    - "Sourav is a strong advocate of research that directly or indirectly impacts end users."

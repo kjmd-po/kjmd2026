@@ -126,34 +126,41 @@ layout: default
             display: grid;
             grid-template-columns: 1fr auto;
             gap: 1.5rem;
-            align-items: baseline;
-            padding: 1.35rem 0;
+            align-items: center;
+            padding: .85rem 0;
             border-bottom: 1px solid var(--rule);
           }
           .org-name {
-            font-size: 1.08rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--ink);
             letter-spacing: -0.01em;
           }
           .org-affil {
             display: block;
-            margin-top: .2rem;
+            margin-top: .1rem;
             color: var(--muted);
-            font-size: .88rem;
+            font-size: .85rem;
           }
-          .org-item a {
+
+          /* Icon-only link: the label is carried by aria-label / title. */
+          .org-link {
+            display: inline-grid;
+            place-items: center;
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--rule);
+            border-radius: 50%;
             color: var(--muted);
             font-size: .8rem;
-            font-weight: 500;
             text-decoration: none;
-            white-space: nowrap;
-            border-bottom: 1px solid transparent;
-            transition: color .15s ease, border-color .15s ease;
+            transition: color .15s ease, border-color .15s ease, background .15s ease;
           }
-          .org-item a:hover {
+          .org-link:hover,
+          .org-link:focus-visible {
             color: var(--accent);
-            border-bottom-color: var(--accent);
+            border-color: var(--accent);
+            background: var(--paper-alt);
           }
         </style>
 
@@ -196,7 +203,10 @@ layout: default
                   <span class="org-affil">{{ person.affiliation }}</span>
                 </span>
                 {% if person.url %}
-                  <a href="{{ person.url }}" target="_blank" rel="noopener">Homepage</a>
+                  <a class="org-link" href="{{ person.url }}" target="_blank" rel="noopener"
+                     aria-label="{{ person.name }} homepage" title="{{ person.name }} homepage">
+                    <i class="fas fa-link" aria-hidden="true"></i>
+                  </a>
                 {% endif %}
               </li>
             {% endfor %}

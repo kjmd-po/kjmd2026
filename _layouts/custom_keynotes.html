@@ -80,6 +80,22 @@ layout: default
             font-weight: 400;
             letter-spacing: 0;
           }
+          .kn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            margin-top: 1rem;
+            padding-bottom: .2rem;
+            border-bottom: 1px solid var(--rule);
+            color: var(--accent);
+            font-size: .84rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: border-color .15s ease;
+          }
+          .kn-link:hover { border-bottom-color: var(--accent); }
+          .kn-link i { font-size: .72em; }
+
           .kn-talk {
             margin: 1.5rem 0 0;
             padding-top: 1.25rem;
@@ -146,9 +162,14 @@ layout: default
               <div class="kn-body">
                 <span class="kn-role">Keynote</span>
                 <h2 class="kn-name">
-                  {{ kn.speaker }}
+                  {% if kn.honorific %}{{ kn.honorific }} {% endif %}{{ kn.speaker }}
                   {% if kn.affiliation %}<span class="kn-affil">{{ kn.affiliation }}</span>{% endif %}
                 </h2>
+                {% if kn.url %}
+                  <a class="kn-link" href="{{ kn.url }}" target="_blank" rel="noopener">
+                    Homepage <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                  </a>
+                {% endif %}
                 <p class="kn-talk">{{ kn.title }}</p>
               </div>
             </header>
