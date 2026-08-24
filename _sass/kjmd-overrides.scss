@@ -124,7 +124,10 @@
   margin: 0 0 .35rem;
   text-align: center;
   color: var(--brand);
-  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.2rem);
+  /* unquote() keeps the expression literal: the Ruby Sass used by GitHub
+     Pages would otherwise try to evaluate "1.2rem + 1.6vw" at compile time
+     and fail on incompatible units. */
+  font-size: unquote("clamp(1.6rem, 1.2rem + 1.6vw, 2.2rem)");
   font-weight: 700;
   line-height: 1.25;
 }
@@ -148,7 +151,7 @@
 }
 .place-block .photo-placeholder{
   width: 100%;
-  aspect-ratio: 3 / 1;
+  aspect-ratio: unquote("3 / 1");  /* unquoted: Ruby Sass would divide it to "3" */
   border-radius: 14px;
   border: 1px dashed var(--border);
   background: var(--surface);
