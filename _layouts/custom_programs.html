@@ -86,22 +86,26 @@ layout: default
              the accent so the shape of the program is legible at a glance. */
           .sched-row.is-feature .sched-session { color: var(--accent); }
 
-          /* The detail continues the session label on the same line, so a
-             keynote reads as one phrase: KEYNOTE — Prof. Sourav S. Bhowmick */
+          /* The detail continues the session label on the same line and in
+             the same type, so a keynote reads as one phrase:
+             KEYNOTE PROF. SOURAV S. BHOWMICK — the link is the only cue.
+             .sched-session and .sched-detail are siblings, so the type has
+             to be repeated rather than inherited. */
           .sched-detail {
-            color: var(--ink-soft);
-            line-height: 1.6;
-            text-transform: none;
-            letter-spacing: 0;
-            font-size: 1rem;
-            font-weight: 400;
+            margin-inline-start: .5em;
+            font-size: .72rem;
+            font-weight: 600;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            color: var(--ink);
           }
-          .sched-detail::before {
-            content: "\2014";
-            margin: 0 .55rem 0 .5rem;
-            color: var(--rule);
+          .sched-detail a {
+            color: inherit;
+            text-decoration: underline;
+            text-decoration-color: currentColor;
+            text-underline-offset: 3px;
           }
-          .sched-detail a { color: var(--accent); }
+          .sched-row.is-feature .sched-detail { color: var(--accent); }
 
           @media (max-width: 780px) {
             .sched-row {

@@ -73,7 +73,9 @@ layout: default
             color: var(--ink);
           }
           .kn-affil {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
             margin-top: .5rem;
             color: var(--muted);
             font-size: 1rem;
@@ -81,20 +83,24 @@ layout: default
             letter-spacing: 0;
           }
           .kn-link {
-            display: inline-flex;
-            align-items: center;
-            gap: .5rem;
-            margin-top: 1rem;
-            padding-bottom: .2rem;
-            border-bottom: 1px solid var(--rule);
-            color: var(--accent);
-            font-size: .84rem;
-            font-weight: 500;
+            display: inline-grid;
+            place-items: center;
+            width: 26px;
+            height: 26px;
+            flex: 0 0 auto;
+            border: 1px solid var(--rule);
+            border-radius: 50%;
+            color: var(--muted);
+            font-size: .72rem;
             text-decoration: none;
-            transition: border-color .15s ease;
+            transition: color .15s ease, border-color .15s ease, background .15s ease;
           }
-          .kn-link:hover { border-bottom-color: var(--accent); }
-          .kn-link i { font-size: .72em; }
+          .kn-link:hover,
+          .kn-link:focus-visible {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: var(--paper-alt);
+          }
 
           .kn-talk {
             margin: 1.5rem 0 0;
@@ -166,13 +172,18 @@ layout: default
                 <span class="kn-role">Keynote</span>
                 <h2 class="kn-name">
                   {% if kn.honorific %}{{ kn.honorific }} {% endif %}{{ kn.speaker }}
-                  {% if kn.affiliation %}<span class="kn-affil">{{ kn.affiliation }}</span>{% endif %}
+                  {% if kn.affiliation or kn.url %}
+                    <span class="kn-affil">
+                      {{ kn.affiliation }}
+                      {% if kn.url %}
+                        <a class="kn-link" href="{{ kn.url }}" target="_blank" rel="noopener"
+                           aria-label="{{ kn.speaker }} homepage" title="{{ kn.speaker }} homepage">
+                          <i class="fas fa-home" aria-hidden="true"></i>
+                        </a>
+                      {% endif %}
+                    </span>
+                  {% endif %}
                 </h2>
-                {% if kn.url %}
-                  <a class="kn-link" href="{{ kn.url }}" target="_blank" rel="noopener">
-                    Homepage <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
-                  </a>
-                {% endif %}
                 <p class="kn-talk">{{ kn.title }}</p>
               </div>
             </header>
