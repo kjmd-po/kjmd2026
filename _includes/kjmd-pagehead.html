@@ -1,0 +1,10 @@
+{% comment %}
+  Page header: eyebrow / title / optional lede / accent rule.
+  Set `eyebrow` and `lede` in the page front matter.
+{% endcomment %}
+<header class="kjmd-pagehead">
+  {% if page.eyebrow %}<span class="eyebrow">{{ page.eyebrow }}</span>{% endif %}
+  <h1>{{ page.title }}</h1>
+  {% if page.lede %}<p class="lede">{{ page.lede }}</p>{% endif %}
+  <div class="rule" aria-hidden="true"></div>
+</header>

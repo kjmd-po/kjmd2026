@@ -2,167 +2,124 @@
 layout: default
 ---
 
-{% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
-  {% include page__hero.html %}
-{% elsif page.header.video.id and page.header.video.provider %}
-  {% include page__hero_video.html %}
-{% endif %}
-
-{% assign breadcrumbs_enabled = site.breadcrumbs %}
-{% if page.breadcrumbs != null %}
-  {% assign breadcrumbs_enabled = page.breadcrumbs %}
-{% endif %}
-{% if page.url != "/" and breadcrumbs_enabled %}
-  {% unless paginator %}
-    {% include breadcrumbs.html %}
-  {% endunless %}
-{% endif %}
-
 <div id="main" role="main">
-  {% include sidebar.html %}
-
-  <article class="page" itemscope itemtype="https://schema.org/CreativeWork"{% if page.locale %} lang="{{ page.locale }}"{% endif %}>
-    {% if page.title %}<meta itemprop="headline" content="{{ page.title | replace: '|', '&#124;' | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date_to_xmlschema }}">{% endif %}
-    {% if page.last_modified_at %}<meta itemprop="dateModified" content="{{ page.last_modified_at | date_to_xmlschema }}">{% endif %}
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="{{ page.title | escape_once }}">
 
     <div class="page__inner-wrap">
-      {% unless page.header.overlay_color or page.header.overlay_image %}
-        <header>
-          {% if page.title -%}
-          <h1 id="page-title" class="page__title" itemprop="headline">
-            <a href="{{ page.url | absolute_url }}" itemprop="url">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</a>
-          </h1>
-          {%- endif %}
-          {% include page__meta.html %}
-        </header>
-      {% endunless %}
+      {% include kjmd-pagehead.html %}
 
       <section class="page__content" itemprop="text">
-        {% if page.toc %}
-          <aside class="sidebar__right {% if page.toc_sticky %}sticky{% endif %}">
-            <nav class="toc">
-              <header><h4 class="nav__title"><i class="fas fa-{{ page.toc_icon | default: 'file-alt' }}"></i> {{ page.toc_label | default: site.data.ui-text[site.locale].toc_label | default: "On this page" }}</h4></header>
-              {% include toc.html sanitize=true html=content h_min=1 h_max=6 class="toc__menu" skip_no_ids=true %}
-            </nav>
-          </aside>
-        {% endif %}
+        <style>
+          .place-name {
+            margin: 0 0 .4rem;
+            font-size: clamp(1.5rem, 2.8vw, 2rem);
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            line-height: 1.15;
+            color: var(--ink);
+          }
+          .place-native {
+            margin: 0 0 2.5rem;
+            color: var(--muted);
+            font-size: .95rem;
+          }
 
+          .place-photo { margin: 0 0 3rem; }
+          .place-photo img {
+            width: 100%; height: auto;
+            display: block;
+            border-radius: 2px;
+          }
+          .place-photo .pending {
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            padding: 1.1rem 1.25rem;
+            border: 1px dashed var(--rule);
+            border-radius: 2px;
+            color: var(--muted);
+            font-size: .86rem;
+          }
+          .place-photo .pending i { opacity: .55; }
 
-        <!-- ===== Venue: TKP Yokohama Conference Center ===== -->
-        <section class="place-block" aria-label="Venue">
+          .map {
+            margin: 3rem 0 1.5rem;
+            border: 1px solid var(--rule);
+            border-radius: 2px;
+            overflow: hidden;
+          }
+          .map .ratio { position: relative; padding-top: 52%; }
+          .map iframe {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%; border: 0;
+          }
 
+          .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding-bottom: .2rem;
+            border-bottom: 1px solid var(--rule);
+            color: var(--accent);
+            font-size: .86rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: border-color .15s ease;
+          }
+          .map-link:hover { border-bottom-color: var(--accent); }
+          .map-link i { font-size: .72em; }
+        </style>
 
-          <h2 class="place-title">TKP Yokohama Conference Center</h2>
-          <p class="place-subtitle">TKP横浜会議室</p>
+        <h2 class="place-name">TKP Yokohama Conference Center</h2>
+        <p class="place-native">TKP横浜会議室</p>
 
-          <!-- Venue photo — replace the placeholder with the real photo when available -->
-          <figure>
-            <div class="photo-placeholder">
-              <i class="fas fa-image" aria-hidden="true"></i>
-              <span>Venue photo to be added</span>
-            </div>
-            <!--
-            <img src="{{ '/assets/images/venue/tkp-yokohama.jpg' | relative_url }}"
-                 alt="TKP Yokohama Conference Center">
-            -->
-          </figure>
-
-          <ul class="info-grid">
-            <li class="info-item">
-              <span class="info-icon"><i class="fas fa-map-marker-alt" aria-hidden="true"></i></span>
-              <span class="info-body">
-                <span class="info-label">Address</span>
-                <span class="info-value">
-                  SY Building 7F, 3-30-8 Tsuruyacho, Kanagawa Ward,<br>
-                  Yokohama, Kanagawa 221-0835, Japan
-                </span>
-              </span>
-            </li>
-
-            <li class="info-item">
-              <span class="info-icon"><i class="fas fa-train" aria-hidden="true"></i></span>
-              <span class="info-body">
-                <span class="info-label">Getting there</span>
-                <span class="info-value">6-minute walk from the West Exit of Yokohama Station</span>
-              </span>
-            </li>
-
-            <li class="info-item">
-              <span class="info-icon"><i class="fas fa-phone" aria-hidden="true"></i></span>
-              <span class="info-body">
-                <span class="info-label">Tel</span>
-                <span class="info-value"><a href="tel:+81453221361">+81-45-322-1361</a></span>
-              </span>
-            </li>
-
-            <li class="info-item">
-              <span class="info-icon"><i class="fas fa-globe" aria-hidden="true"></i></span>
-              <span class="info-body">
-                <span class="info-label">Website</span>
-                <span class="info-value">
-                  <a href="https://www.kashikaigishitsu.net/facilitys/bc-yokohama/" target="_blank" rel="noopener">
-                    kashikaigishitsu.net
-                  </a>
-                </span>
-              </span>
-            </li>
-          </ul>
-
-          <div class="map-embed">
-            <div class="ratio">
-              <iframe
-                title="Map: TKP Yokohama Conference Center"
-                src="https://www.google.com/maps?q=%E3%80%92221-0835+Kanagawa%2C+Yokohama%2C+Kanagawa+Ward%2C+Tsuruyacho%2C+3+Chome-30-8+SY+Building+7F&output=embed"
-                loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
-              </iframe>
-            </div>
+        <figure class="place-photo">
+          <div class="pending">
+            <i class="fas fa-camera" aria-hidden="true"></i>
+            <span>Venue photo to be added</span>
           </div>
+          <!--
+          <img src="{{ '/assets/images/venue/tkp-yokohama.jpg' | relative_url }}"
+               alt="TKP Yokohama Conference Center">
+          -->
+        </figure>
 
-          <div class="map-link">
-            <a href="https://www.google.com/maps/search/?api=1&query=%E3%80%92221-0835+Kanagawa%2C+Yokohama%2C+Kanagawa+Ward%2C+Tsuruyacho%2C+3+Chome-30-8+SY+Building+7F"
-               target="_blank" rel="noopener">
-              <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
-              Open in Google Maps
-            </a>
+        <ul class="kjmd-records">
+          <li class="kjmd-record">
+            <span class="label">Address</span>
+            <span class="value">SY Building 7F, 3-30-8 Tsuruyacho, Kanagawa Ward,<br>Yokohama, Kanagawa 221-0835, Japan</span>
+          </li>
+          <li class="kjmd-record">
+            <span class="label">Getting there</span>
+            <span class="value">6-minute walk from the West Exit of Yokohama Station</span>
+          </li>
+          <li class="kjmd-record">
+            <span class="label">Tel</span>
+            <span class="value"><a href="tel:+81453221361">+81-45-322-1361</a></span>
+          </li>
+          <li class="kjmd-record">
+            <span class="label">Website</span>
+            <span class="value"><a href="https://www.kashikaigishitsu.net/facilitys/bc-yokohama/" target="_blank" rel="noopener">kashikaigishitsu.net</a></span>
+          </li>
+        </ul>
+
+        <div class="map">
+          <div class="ratio">
+            <iframe
+              title="Map: TKP Yokohama Conference Center"
+              src="https://www.google.com/maps?q=%E3%80%92221-0835+Kanagawa%2C+Yokohama%2C+Kanagawa+Ward%2C+Tsuruyacho%2C+3+Chome-30-8+SY+Building+7F&output=embed"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
+            </iframe>
           </div>
+        </div>
 
-        </section>
-
-        {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
+        <a class="map-link"
+           href="https://www.google.com/maps/search/?api=1&query=%E3%80%92221-0835+Kanagawa%2C+Yokohama%2C+Kanagawa+Ward%2C+Tsuruyacho%2C+3+Chome-30-8+SY+Building+7F"
+           target="_blank" rel="noopener">
+          Open in Google Maps <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+        </a>
       </section>
-
-      <footer class="page__meta">
-        {% if site.data.ui-text[site.locale].meta_label %}
-          <h4 class="page__meta-title">{{ site.data.ui-text[site.locale].meta_label }}</h4>
-        {% endif %}
-        {% include page__taxonomy.html %}
-        {% include page__date.html %}
-      </footer>
-
-      {% if page.share %}{% include social-share.html %}{% endif %}
-
-      {% include post_pagination.html %}
     </div>
-
-    {% if site.comments.provider and page.comments %}
-      {% if jekyll.environment == 'production' %}
-        {% include comments.html %}
-      {% else %}
-        <p>
-          Comments are configured with provider: <strong>{{ site.comments.provider }}</strong>,
-          but are disabled in non-production environments.
-        </p>
-      {% endif %}
-    {% endif %}
   </article>
-
-  {% comment %}<!-- only show related on a post page when `related: true` -->{% endcomment %}
-  {% if page.id and page.related and site.related_posts.size > 0 %}
-    {% include page__related.html posts=site.related_posts %}
-  {% comment %}<!-- otherwise show recent posts if no related when `related: true` -->{% endcomment %}
-  {% elsif page.id and page.related %}
-    {% include page__related.html posts=site.posts %}
-  {% endif %}
 </div>

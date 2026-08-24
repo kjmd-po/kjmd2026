@@ -2,257 +2,211 @@
 layout: default
 ---
 
-
-<style>
-    /* Scoped to the Conference Officers page */
-    .officers{
-      --brand:#2a7ae2;
-      --ink:#123665;
-      --surface:#eef5ff;
-      --border:#cfe1ff;
-      --muted:#5976a8;
-      --shadow:rgba(42,122,226,.10);
-      max-width: 820px;
-      margin: 0 auto;
-    }
-
-    .officers .section-title{
-      border-left: 5px solid var(--brand);
-      padding-left: .85rem;
-      margin: 2.5rem 0 1rem;
-      font-weight: 700;
-      color: var(--ink);
-      font-size: clamp(1.3rem, 1.1rem + .7vw, 1.6rem);
-    }
-    .officers .section-title:first-child{ margin-top: .5rem; }
-
-    .officers .officer-list{
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: .75rem;
-    }
-
-    .officers .officer-list li{
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: .85rem 1rem;
-      transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
-    }
-    .officers .officer-list li:hover{
-      border-color:#b9d1ff;
-      box-shadow: 0 4px 16px var(--shadow);
-      transform: translateY(-1px);
-    }
-
-    /* Photo — General Chairs only */
-    .officers .officer-photo{
-      flex: 0 0 58px;
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      overflow: hidden;
-      background: #dfeaff;
-      box-shadow: inset 0 0 0 1px var(--border);
-    }
-    .officers .officer-photo img{
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    /* Placeholder initial when no photo file is set yet */
-    .officers .officer-photo.is-empty{
-      display: grid;
-      place-items: center;
-      color: var(--brand);
-      font-weight: 700;
-      font-size: 1.35rem;
-    }
-
-    .officers .officer-body{
-      flex: 1 1 auto;
-      min-width: 0;
-    }
-    .officers .name{
-      display: block;
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1.35;
-    }
-    .officers .affil{
-      display: block;
-      color: var(--muted);
-      font-size: .9rem;
-      margin-top: .15rem;
-    }
-
-    /* Homepage link lives in the icon button */
-    .officers .home-link{
-      flex: 0 0 auto;
-      margin-left: auto;
-      display: inline-grid;
-      place-items: center;
-      width: 34px; height: 34px;
-      border: 1.5px solid #c7d1db;
-      border-radius: 8px;
-      color: var(--muted);
-      text-decoration: none;
-      background: #fff;
-      transition: border-color .15s ease, color .15s ease, background .15s ease;
-    }
-    .officers .home-link:hover,
-    .officers .home-link:focus{
-      border-color: var(--brand);
-      color: var(--brand);
-      background: #f4f9ff;
-      outline: none;
-    }
-    .officers .home-link i{ font-size: .95rem; line-height: 1; }
-
-    @media (max-width: 480px){
-      .officers .officer-list li{ padding: .75rem .85rem; gap: .8rem; }
-      .officers .officer-photo{ flex-basis: 48px; width: 48px; height: 48px; }
-    }
-</style>
-
-
-{% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
-  {% include page__hero.html %}
-{% elsif page.header.video.id and page.header.video.provider %}
-  {% include page__hero_video.html %}
-{% endif %}
-
-{% assign breadcrumbs_enabled = site.breadcrumbs %}
-{% if page.breadcrumbs != null %}
-  {% assign breadcrumbs_enabled = page.breadcrumbs %}
-{% endif %}
-{% if page.url != "/" and breadcrumbs_enabled %}
-  {% unless paginator %}
-    {% include breadcrumbs.html %}
-  {% endunless %}
-{% endif %}
-
 <div id="main" role="main">
-  {% include sidebar.html %}
-
-  <article class="page" itemscope itemtype="https://schema.org/CreativeWork"{% if page.locale %} lang="{{ page.locale }}"{% endif %}>
-    {% if page.title %}<meta itemprop="headline" content="{{ page.title | replace: '|', '&#124;' | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date_to_xmlschema }}">{% endif %}
-    {% if page.last_modified_at %}<meta itemprop="dateModified" content="{{ page.last_modified_at | date_to_xmlschema }}">{% endif %}
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="{{ page.title | escape_once }}">
 
     <div class="page__inner-wrap">
-      {% unless page.header.overlay_color or page.header.overlay_image %}
-        <header>
-          {% if page.title -%}
-          <h1 id="page-title" class="page__title" itemprop="headline">
-            <a href="{{ page.url | absolute_url }}" itemprop="url">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</a>
-          </h1>
-          {%- endif %}
-          {% include page__meta.html %}
-        </header>
-      {% endunless %}
+      {% include kjmd-pagehead.html %}
 
       <section class="page__content" itemprop="text">
-        {% if page.toc %}
-          <aside class="sidebar__right {% if page.toc_sticky %}sticky{% endif %}">
-            <nav class="toc">
-              <header><h4 class="nav__title"><i class="fas fa-{{ page.toc_icon | default: 'file-alt' }}"></i> {{ page.toc_label | default: site.data.ui-text[site.locale].toc_label | default: "On this page" }}</h4></header>
-              {% include toc.html sanitize=true html=content h_min=1 h_max=6 class="toc__menu" skip_no_ids=true %}
-            </nav>
-          </aside>
-        {% endif %}
-        
-        
-        <div class="officers">
+        <style>
+          /* General Chairs: a large portrait beside the name, set on a rule.
+             Organization Chairs stay as compact records — the hierarchy is
+             the point, so the two lists are deliberately different objects. */
+          .chairs { margin-bottom: 5rem; }
 
-          <h2 class="section-title">General Chairs</h2>
-          <ul class="officer-list">
-            {% for person in site.data.officers.general_chairs %}
-              <li>
-                {% if person.photo %}
-                  <div class="officer-photo">
-                    <img src="{{ person.photo | relative_url }}" alt="{{ person.name }}" loading="lazy">
-                  </div>
-                {% else %}
-                  <div class="officer-photo is-empty" aria-hidden="true">{{ person.name | slice: 0, 1 }}</div>
-                {% endif %}
+          .chairs > h2 {
+            margin: 0 0 2.5rem;
+            padding-bottom: .85rem;
+            border-bottom: 1px solid var(--ink);
+            font-size: .78rem;
+            font-weight: 600;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--ink);
+          }
 
-                <div class="officer-body">
-                  <span class="name">{{ person.name }}</span>
-                  <span class="affil">{{ person.affiliation }}</span>
+          /* ---- General Chairs ---- */
+          .chair {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 2.5rem;
+            align-items: start;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid var(--rule);
+          }
+          .chair:first-of-type { padding-top: 0; }
+
+          .chair-portrait {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            background: #f1f3f5;
+            border-radius: 2px;
+          }
+          .chair-portrait img {
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center top;
+            display: block;
+            filter: grayscale(100%);
+            transition: filter .35s ease;
+          }
+          .chair:hover .chair-portrait img { filter: grayscale(0%); }
+
+          .chair-portrait.is-empty {
+            /* aspect-ratio needs a definite size to resolve on an empty box */
+            display: grid;
+            place-items: center;
+            color: #c2c8d0;
+            font-size: 2rem;
+            background: #f6f7f9;
+            border: 1px solid var(--rule);
+          }
+          .chair-portrait.is-empty::before {
+            content: "";
+            display: block;
+            padding-top: 125%;   /* 4:5, for browsers resolving the empty box */
+            grid-area: 1 / 1;
+          }
+          .chair-portrait.is-empty i { grid-area: 1 / 1; }
+
+          .chair-body { padding-top: .35rem; }
+
+          .chair-role {
+            display: block;
+            margin-bottom: .9rem;
+            color: var(--muted);
+            font-size: .7rem;
+            font-weight: 600;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+          }
+          .chair-name {
+            margin: 0;
+            font-size: clamp(1.6rem, 3vw, 2.25rem);
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            color: var(--ink);
+          }
+          .chair-affil {
+            margin: .85rem 0 0;
+            max-width: 40ch;
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.6;
+          }
+          .chair-link {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            margin-top: 1.5rem;
+            padding-bottom: .2rem;
+            border-bottom: 1px solid var(--rule);
+            color: var(--accent);
+            font-size: .84rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: border-color .15s ease;
+          }
+          .chair-link:hover { border-bottom-color: var(--accent); }
+          .chair-link i { font-size: .72em; }
+
+          @media (max-width: 700px) {
+            .chair { grid-template-columns: 1fr; gap: 1.5rem; }
+            .chair-portrait { max-width: 220px; }
+          }
+
+          /* ---- Organization Chairs ---- */
+          .org-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border-top: 1px solid var(--rule);
+          }
+          .org-item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1.5rem;
+            align-items: baseline;
+            padding: 1.35rem 0;
+            border-bottom: 1px solid var(--rule);
+          }
+          .org-name {
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+          }
+          .org-affil {
+            display: block;
+            margin-top: .2rem;
+            color: var(--muted);
+            font-size: .88rem;
+          }
+          .org-item a {
+            color: var(--muted);
+            font-size: .8rem;
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
+            border-bottom: 1px solid transparent;
+            transition: color .15s ease, border-color .15s ease;
+          }
+          .org-item a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+          }
+        </style>
+
+        <section class="chairs">
+          <h2>General Chairs</h2>
+
+          {% for person in site.data.officers.general_chairs %}
+            <article class="chair">
+              {% if person.photo %}
+                <div class="chair-portrait">
+                  <img src="{{ person.photo | relative_url }}" alt="{{ person.name }}" loading="lazy">
                 </div>
+              {% else %}
+                <div class="chair-portrait is-empty" aria-hidden="true">
+                  <i class="fas fa-user"></i>
+                </div>
+              {% endif %}
 
+              <div class="chair-body">
+                <span class="chair-role">General Chair</span>
+                <h3 class="chair-name">{{ person.name }}</h3>
+                <p class="chair-affil">{{ person.affiliation }}</p>
                 {% if person.url %}
-                  <a class="home-link" href="{{ person.url }}" target="_blank" rel="noopener"
-                     aria-label="{{ person.name }} homepage" title="{{ person.name }} homepage">
-                    <i class="fas fa-home" aria-hidden="true"></i>
+                  <a class="chair-link" href="{{ person.url }}" target="_blank" rel="noopener">
+                    Homepage <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
                   </a>
                 {% endif %}
-              </li>
-            {% endfor %}
-          </ul>
+              </div>
+            </article>
+          {% endfor %}
+        </section>
 
-          <h2 class="section-title">Organization Chairs</h2>
-          <ul class="officer-list">
+        <section class="chairs">
+          <h2>Organization Chairs</h2>
+          <ul class="org-list">
             {% for person in site.data.officers.organization_chairs %}
-              <li>
-                <div class="officer-body">
-                  <span class="name">{{ person.name }}</span>
-                  <span class="affil">{{ person.affiliation }}</span>
-                </div>
-
+              <li class="org-item">
+                <span>
+                  <span class="org-name">{{ person.name }}</span>
+                  <span class="org-affil">{{ person.affiliation }}</span>
+                </span>
                 {% if person.url %}
-                  <a class="home-link" href="{{ person.url }}" target="_blank" rel="noopener"
-                     aria-label="{{ person.name }} homepage" title="{{ person.name }} homepage">
-                    <i class="fas fa-home" aria-hidden="true"></i>
-                  </a>
+                  <a href="{{ person.url }}" target="_blank" rel="noopener">Homepage</a>
                 {% endif %}
               </li>
             {% endfor %}
           </ul>
-
-        </div>
-
-        {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
+        </section>
       </section>
-
-      <footer class="page__meta">
-        {% if site.data.ui-text[site.locale].meta_label %}
-          <h4 class="page__meta-title">{{ site.data.ui-text[site.locale].meta_label }}</h4>
-        {% endif %}
-        {% include page__taxonomy.html %}
-        {% include page__date.html %}
-      </footer>
-
-      {% if page.share %}{% include social-share.html %}{% endif %}
-
-      {% include post_pagination.html %}
     </div>
-
-    {% if site.comments.provider and page.comments %}
-      {% if jekyll.environment == 'production' %}
-        {% include comments.html %}
-      {% else %}
-        <p>
-          Comments are configured with provider: <strong>{{ site.comments.provider }}</strong>,
-          but are disabled in non-production environments.
-        </p>
-      {% endif %}
-    {% endif %}
   </article>
-
-  {% comment %}<!-- only show related on a post page when `related: true` -->{% endcomment %}
-  {% if page.id and page.related and site.related_posts.size > 0 %}
-    {% include page__related.html posts=site.related_posts %}
-  {% comment %}<!-- otherwise show recent posts if no related when `related: true` -->{% endcomment %}
-  {% elsif page.id and page.related %}
-    {% include page__related.html posts=site.posts %}
-  {% endif %}
 </div>

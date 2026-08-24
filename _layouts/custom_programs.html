@@ -2,213 +2,122 @@
 layout: default
 ---
 
-{% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
-  {% include page__hero.html %}
-{% elsif page.header.video.id and page.header.video.provider %}
-  {% include page__hero_video.html %}
-{% endif %}
-
-{% assign breadcrumbs_enabled = site.breadcrumbs %}
-{% if page.breadcrumbs != null %}
-  {% assign breadcrumbs_enabled = page.breadcrumbs %}
-{% endif %}
-{% if page.url != "/" and breadcrumbs_enabled %}
-  {% unless paginator %}
-    {% include breadcrumbs.html %}
-  {% endunless %}
-{% endif %}
-
 <div id="main" role="main">
-  {% include sidebar.html %}
-
-  <article class="page" itemscope itemtype="https://schema.org/CreativeWork"{% if page.locale %} lang="{{ page.locale }}"{% endif %}>
-    {% if page.title %}<meta itemprop="headline" content="{{ page.title | replace: '|', '&#124;' | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date_to_xmlschema }}">{% endif %}
-    {% if page.last_modified_at %}<meta itemprop="dateModified" content="{{ page.last_modified_at | date_to_xmlschema }}">{% endif %}
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="{{ page.title | escape_once }}">
 
     <div class="page__inner-wrap">
-      {% unless page.header.overlay_color or page.header.overlay_image %}
-        <header>
-          {% if page.title -%}
-          <h1 id="page-title" class="page__title" itemprop="headline">
-            <a href="{{ page.url | absolute_url }}" itemprop="url">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</a>
-          </h1>
-          {%- endif %}
-          {% include page__meta.html %}
-        </header>
-      {% endunless %}
+      {% include kjmd-pagehead.html %}
 
       <section class="page__content" itemprop="text">
-        {% if page.toc %}
-          <aside class="sidebar__right {% if page.toc_sticky %}sticky{% endif %}">
-            <nav class="toc">
-              <header><h4 class="nav__title"><i class="fas fa-{{ page.toc_icon | default: 'file-alt' }}"></i> {{ page.toc_label | default: site.data.ui-text[site.locale].toc_label | default: "On this page" }}</h4></header>
-              {% include toc.html sanitize=true html=content h_min=1 h_max=6 class="toc__menu" skip_no_ids=true %}
-            </nav>
-          </aside>
-        {% endif %}
+        <style>
+          /* The schedule is one continuous list. Days are set as sticky
+             headers so the reader always knows where they are; each entry is
+             a hairline row of time / session / detail. */
+          .schedule { margin: 0; }
 
-        <!-- ===== Program Structure (single combined table) ===== -->
-        <div class="program-schedule">
-          <style>
-            /* Pastel blue palette (scoped) */
-            .program-schedule{
-              --brand:#2a7ae2;
-              --bg:#eef5ff;          /* default row */
-              --row-strong:#e3ecff;  /* highlighted row (talks / keynotes) */
-              --border:#cfe1ff;
-              --header:#dbe7ff;
-              --header-br:#b8d0ff;
-              --header-fg:#163a76;
-              --day-bg:#d3e3ff;      /* day separator row */
-              --muted:#5976a8;
-              --shadow:rgba(42,122,226,.08);
-              --badge-bg:#e7f0ff;
-              --badge-fg:#2a63c2;
-              --badge-br:#c6d8ff;
-            }
+          .sched-day {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin: 0;
+            padding: 1.1rem 0 .9rem;
+            background: var(--paper);
+            border-bottom: 2px solid var(--ink);
+          }
+          .sched-day + .sched-rows { margin-top: 0; }
 
-            .program-schedule{ max-width: 980px; margin: 0 auto; }
-            .program-schedule .table-wrap{
-              overflow-x:auto;
-              -webkit-overflow-scrolling:touch;
-              margin: .5rem 0 1rem;
-            }
-            .program-schedule table.schedule{
-              width:100%;
-              min-width:640px;      /* scrolls rather than crushing on small screens */
-              table-layout:fixed;   /* honour the colgroup below */
-              border-collapse:separate;
-              border-spacing:0 8px;
-            }
+          .sched-day .day-name {
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            color: var(--ink);
+            white-space: nowrap;
+          }
+          .sched-day .day-note {
+            color: var(--muted);
+            font-size: .76rem;
+            font-weight: 500;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+          }
 
-            /* header */
-            .program-schedule thead th{
-              background:var(--header); color:var(--header-fg);
-              text-align:left; padding:.7rem .9rem; font-weight:700;
-              border:1px solid var(--header-br);
-              white-space:nowrap;
-            }
-            .program-schedule thead th:first-child{border-top-left-radius:12px;border-bottom-left-radius:12px;}
-            .program-schedule thead th:last-child{border-top-right-radius:12px;border-bottom-right-radius:12px;}
+          .sched-rows {
+            margin: 0 0 3rem;
+            padding: 0;
+            list-style: none;
+          }
 
-            /* day separator row inside the single table */
-            .program-schedule tr.day-row th{
-              background:var(--day-bg);
-              color:var(--header-fg);
-              border:1px solid var(--header-br);
-              border-radius:12px;
-              text-align:left;
-              font-weight:700;
-              letter-spacing:.02em;
-              padding:.6rem .9rem;
-              font-size:.98rem;
-            }
+          .sched-row {
+            display: grid;
+            grid-template-columns: 150px 200px 1fr;
+            gap: 1.5rem;
+            align-items: baseline;
+            padding: 1.15rem 0;
+            border-bottom: 1px solid var(--rule);
+            transition: background .15s ease;
+          }
+          .sched-row:hover { background: var(--paper-alt); }
 
-            /* body rows */
-            .program-schedule tbody td{
-              background:var(--bg); border:1px solid var(--border);
-              padding:.8rem .95rem; vertical-align:top;
-              transition:box-shadow .15s ease,border-color .15s ease,transform .15s ease;
-            }
-            .program-schedule tbody tr.entry:hover td{
-              box-shadow:0 4px 16px var(--shadow); border-color:#b9d1ff; transform:translateY(-1px);
-            }
-            .program-schedule tbody td.time{
-              border-top-left-radius:12px;border-bottom-left-radius:12px;
-              white-space:nowrap;color:var(--muted);font-weight:700;
-            }
-            .program-schedule tbody td:last-child{border-top-right-radius:12px;border-bottom-right-radius:12px;}
+          .sched-time {
+            color: var(--muted);
+            font-size: .88rem;
+            font-weight: 500;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+          }
 
-            .program-schedule tr.highlight td{
-              background:var(--row-strong);
-              border-color:#bcd3ff;
+          .sched-session {
+            font-size: .72rem;
+            font-weight: 600;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            color: var(--ink);
+          }
+          /* Keynotes and talks are the substance of the day: mark them with
+             the accent so the shape of the program is legible at a glance. */
+          .sched-row.is-feature .sched-session { color: var(--accent); }
+
+          .sched-detail {
+            color: var(--ink-soft);
+            line-height: 1.6;
+          }
+
+          @media (max-width: 780px) {
+            .sched-row {
+              grid-template-columns: 1fr;
+              gap: .3rem;
+              padding: 1.1rem 0;
             }
+            .sched-day { padding-top: .9rem; }
+          }
+        </style>
 
-            .program-schedule .tag{
-              display:inline-block;font-size:.78rem;font-weight:700;
-              background:var(--badge-bg);color:var(--badge-fg);
-              border:1px solid var(--badge-br);border-radius:6px;
-              padding:.12rem .45rem;margin-right:.45rem;
-              white-space:nowrap;
-            }
+        <div class="schedule">
+          {% assign current_day = "" %}
+          {% for row in site.data.program %}
+            {% if row.day != current_day %}
+              {% unless forloop.first %}</ul>{% endunless %}
+              <h2 class="sched-day">
+                <span class="day-name">{{ row.day }}</span>
+              </h2>
+              <ul class="sched-rows">
+              {% assign current_day = row.day %}
+            {% endif %}
 
-            @media (max-width:600px){
-              .program-schedule tbody td{padding:.75rem .8rem;}
-              .program-schedule tbody td.time{white-space:normal;}
-            }
-          </style>
+            <li class="sched-row{% if row.highlight %} is-feature{% endif %}">
+              <span class="sched-time">{{ row.time }}</span>
+              <span class="sched-session">{{ row.session }}</span>
+              <span class="sched-detail">{{ row.details }}</span>
+            </li>
 
-          <div class="table-wrap">
-            <table class="schedule">
-              <colgroup>
-                <col style="width:22%">
-                <col style="width:24%">
-                <col style="width:54%">
-              </colgroup>
-              <thead>
-                <tr>
-                  <th>Time</th>
-                  <th>Session</th>
-                  <th>Details</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% assign current_day = "" %}
-                {% for row in site.data.program %}
-                  {% if row.day != current_day %}
-                    <tr class="day-row">
-                      <th colspan="3" scope="colgroup">{{ row.day }}</th>
-                    </tr>
-                    {% assign current_day = row.day %}
-                  {% endif %}
-                  <tr class="entry{% if row.highlight %} highlight{% endif %}">
-                    <td class="time">{{ row.time }}</td>
-                    <td><span class="tag">{{ row.session }}</span></td>
-                    <td>{{ row.details }}</td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-
+            {% if forloop.last %}</ul>{% endif %}
+          {% endfor %}
         </div>
-        <!-- ===== /Program Structure ===== -->
-
-        {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
       </section>
-
-      <footer class="page__meta">
-        {% if site.data.ui-text[site.locale].meta_label %}
-          <h4 class="page__meta-title">{{ site.data.ui-text[site.locale].meta_label }}</h4>
-        {% endif %}
-        {% include page__taxonomy.html %}
-        {% include page__date.html %}
-      </footer>
-
-      {% if page.share %}{% include social-share.html %}{% endif %}
-
-      {% include post_pagination.html %}
     </div>
-
-    {% if site.comments.provider and page.comments %}
-      {% if jekyll.environment == 'production' %}
-        {% include comments.html %}
-      {% else %}
-        <p>
-          Comments are configured with provider: <strong>{{ site.comments.provider }}</strong>,
-          but are disabled in non-production environments.
-        </p>
-      {% endif %}
-    {% endif %}
   </article>
-
-  {% comment %}<!-- only show related on a post page when `related: true` -->{% endcomment %}
-  {% if page.id and page.related and site.related_posts.size > 0 %}
-    {% include page__related.html posts=site.related_posts %}
-  {% comment %}<!-- otherwise show recent posts if no related when `related: true` -->{% endcomment %}
-  {% elsif page.id and page.related %}
-    {% include page__related.html posts=site.posts %}
-  {% endif %}
 </div>

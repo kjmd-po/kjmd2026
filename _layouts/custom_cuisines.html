@@ -2,174 +2,92 @@
 layout: default
 ---
 
-{% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
-  {% include page__hero.html %}
-{% elsif page.header.video.id and page.header.video.provider %}
-  {% include page__hero_video.html %}
-{% endif %}
-
-{% assign breadcrumbs_enabled = site.breadcrumbs %}
-{% if page.breadcrumbs != null %}
-  {% assign breadcrumbs_enabled = page.breadcrumbs %}
-{% endif %}
-{% if page.url != "/" and breadcrumbs_enabled %}
-  {% unless paginator %}
-    {% include breadcrumbs.html %}
-  {% endunless %}
-{% endif %}
-
 <div id="main" role="main">
-  {% include sidebar.html %}
-
-  <article class="page" itemscope itemtype="https://schema.org/CreativeWork"{% if page.locale %} lang="{{ page.locale }}"{% endif %}>
-    {% if page.title %}<meta itemprop="headline" content="{{ page.title | replace: '|', '&#124;' | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date_to_xmlschema }}">{% endif %}
-    {% if page.last_modified_at %}<meta itemprop="dateModified" content="{{ page.last_modified_at | date_to_xmlschema }}">{% endif %}
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="{{ page.title | escape_once }}">
 
     <div class="page__inner-wrap">
-      {% unless page.header.overlay_color or page.header.overlay_image %}
-        <header>
-          {% if page.title -%}
-          <h1 id="page-title" class="page__title" itemprop="headline">
-            <a href="{{ page.url | absolute_url }}" itemprop="url">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</a>
-          </h1>
-          {%- endif %}
-          {% include page__meta.html %}
-        </header>
-      {% endunless %}
+      {% include kjmd-pagehead.html %}
 
       <section class="page__content" itemprop="text">
-        {% if page.toc %}
-          <aside class="sidebar__right {% if page.toc_sticky %}sticky{% endif %}">
-            <nav class="toc">
-              <header><h4 class="nav__title"><i class="fas fa-{{ page.toc_icon | default: 'file-alt' }}"></i> {{ page.toc_label | default: site.data.ui-text[site.locale].toc_label | default: "On this page" }}</h4></header>
-              {% include toc.html sanitize=true html=content h_min=1 h_max=6 class="toc__menu" skip_no_ids=true %}
-            </nav>
-          </aside>
-        {% endif %}
+        <style>
+          /* Two dinners set as parallel columns, divided by a rule rather
+             than boxed. Each field is a labelled record. */
+          .dinners {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border-top: 1px solid var(--ink);
+          }
+          .dinner { padding: 2rem 0 2.5rem; }
+          .dinner + .dinner {
+            border-left: 1px solid var(--rule);
+            padding-left: 2.5rem;
+          }
+          .dinner:first-child { padding-right: 2.5rem; }
 
-        <!-- ===== Cuisines ===== -->
-        <section class="place-block" aria-label="Cuisines">
+          .dinner-day {
+            margin: 0 0 1.75rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            color: var(--ink);
+          }
+          .dinner-day .meal {
+            display: block;
+            margin-top: .3rem;
+            color: var(--muted);
+            font-size: .7rem;
+            font-weight: 600;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+          }
 
-          <style>
-            /* Two-column dinner layout, scoped to this page.
-               A grid rather than a table: the two dinners are parallel
-               panels, and a grid fills the container reliably. */
-            .cuisine-grid{
-              display: grid;
-              grid-template-columns: repeat(2, 1fr);
-              gap: 1rem;
-              margin: 0;
-              padding: 0;
-              list-style: none;
-            }
-            .cuisine-col{ margin: 0; }
+          .dinner dl { margin: 0; }
+          .dinner dt {
+            color: var(--muted);
+            font-size: .7rem;
+            font-weight: 600;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+          }
+          .dinner dd {
+            margin: .3rem 0 1.35rem;
+            color: var(--ink);
+            line-height: 1.6;
+          }
+          .dinner dd:last-child { margin-bottom: 0; }
 
-            .cuisine-day{
-              background: var(--surface-2, #dbe7ff);
-              color: #163a76;
-              font-weight: 700;
-              text-align: center;
-              padding: .8rem 1rem;
-              border: 1px solid #b8d0ff;
-              border-radius: 12px;
-              margin-bottom: .6rem;
-            }
+          @media (max-width: 640px) {
+            .dinners { grid-template-columns: 1fr; }
+            .dinner:first-child { padding-right: 0; border-bottom: 1px solid var(--rule); }
+            .dinner + .dinner { border-left: 0; padding-left: 0; }
+          }
+        </style>
 
-            .cuisine-body{
-              background: var(--surface, #eef5ff);
-              border: 1px solid var(--border, #cfe1ff);
-              border-radius: 12px;
-              padding: 1rem 1.1rem;
-              color: #123665;
-              line-height: 1.6;
-              transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
-            }
-            .cuisine-col:hover .cuisine-body{
-              border-color: #b9d1ff;
-              box-shadow: 0 4px 16px rgba(42,122,226,.10);
-              transform: translateY(-1px);
-            }
+        <ul class="dinners">
+          <li class="dinner">
+            <h2 class="dinner-day">10/30 (Fri) <span class="meal">Dinner</span></h2>
+            <dl>
+              <dt>Restaurant</dt><dd>To be announced</dd>
+              <dt>When</dt><dd>To be announced</dd>
+              <dt>Address</dt><dd>To be announced</dd>
+            </dl>
+          </li>
 
-            .cuisine-body .field-label{
-              display: block;
-              font-size: .72rem;
-              font-weight: 700;
-              letter-spacing: .1em;
-              text-transform: uppercase;
-              color: #5976a8;
-              margin-bottom: .2rem;
-            }
-            .cuisine-body .field-label:not(:first-child){ margin-top: .8rem; }
-
-            @media (max-width: 560px){
-              .cuisine-grid{ grid-template-columns: 1fr; }
-            }
-          </style>
-
-          <h2 class="place-title">Cuisines</h2>
-          <p class="place-subtitle">Dinner arrangements during the workshop.</p>
-
-          <ul class="cuisine-grid">
-            <li class="cuisine-col">
-              <div class="cuisine-day">10/30 (Fri) &mdash; Dinner</div>
-              <div class="cuisine-body">
-                <span class="field-label">Restaurant</span>
-                To be announced
-                <span class="field-label">When</span>
-                To be announced
-                <span class="field-label">Address</span>
-                To be announced
-              </div>
-            </li>
-
-            <li class="cuisine-col">
-              <div class="cuisine-day">10/31 (Sat) &mdash; Dinner</div>
-              <div class="cuisine-body">
-                <span class="field-label">Restaurant</span>
-                To be announced
-                <span class="field-label">When</span>
-                To be announced
-                <span class="field-label">Address</span>
-                To be announced
-              </div>
-            </li>
-          </ul>
-
-        </section>
-
-        {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
+          <li class="dinner">
+            <h2 class="dinner-day">10/31 (Sat) <span class="meal">Dinner</span></h2>
+            <dl>
+              <dt>Restaurant</dt><dd>To be announced</dd>
+              <dt>When</dt><dd>To be announced</dd>
+              <dt>Address</dt><dd>To be announced</dd>
+            </dl>
+          </li>
+        </ul>
       </section>
-
-      <footer class="page__meta">
-        {% if site.data.ui-text[site.locale].meta_label %}
-          <h4 class="page__meta-title">{{ site.data.ui-text[site.locale].meta_label }}</h4>
-        {% endif %}
-        {% include page__taxonomy.html %}
-        {% include page__date.html %}
-      </footer>
-
-      {% if page.share %}{% include social-share.html %}{% endif %}
-
-      {% include post_pagination.html %}
     </div>
-
-    {% if site.comments.provider and page.comments %}
-      {% if jekyll.environment == 'production' %}
-        {% include comments.html %}
-      {% else %}
-        <p>
-          Comments are configured with provider: <strong>{{ site.comments.provider }}</strong>,
-          but are disabled in non-production environments.
-        </p>
-      {% endif %}
-    {% endif %}
   </article>
-
-  {% if page.id and page.related and site.related_posts.size > 0 %}
-    {% include page__related.html posts=site.related_posts %}
-  {% elsif page.id and page.related %}
-    {% include page__related.html posts=site.posts %}
-  {% endif %}
 </div>

@@ -2,209 +2,139 @@
 layout: default
 ---
 
-{% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
-  {% include page__hero.html %}
-{% elsif page.header.video.id and page.header.video.provider %}
-  {% include page__hero_video.html %}
-{% endif %}
-
-{% assign breadcrumbs_enabled = site.breadcrumbs %}
-{% if page.breadcrumbs != null %}
-  {% assign breadcrumbs_enabled = page.breadcrumbs %}
-{% endif %}
-{% if page.url != "/" and breadcrumbs_enabled %}
-  {% unless paginator %}
-    {% include breadcrumbs.html %}
-  {% endunless %}
-{% endif %}
-
 <div id="main" role="main">
-  {% include sidebar.html %}
-
-  <article class="page" itemscope itemtype="https://schema.org/CreativeWork"{% if page.locale %} lang="{{ page.locale }}"{% endif %}>
-    {% if page.title %}<meta itemprop="headline" content="{{ page.title | replace: '|', '&#124;' | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date_to_xmlschema }}">{% endif %}
-    {% if page.last_modified_at %}<meta itemprop="dateModified" content="{{ page.last_modified_at | date_to_xmlschema }}">{% endif %}
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="{{ page.title | escape_once }}">
 
     <div class="page__inner-wrap">
-      {% unless page.header.overlay_color or page.header.overlay_image %}
-        <header>
-          {% if page.title -%}
-          <h1 id="page-title" class="page__title" itemprop="headline">
-            <a href="{{ page.url | absolute_url }}" itemprop="url">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</a>
-          </h1>
-          {%- endif %}
-          {% include page__meta.html %}
-        </header>
-      {% endunless %}
+      {% include kjmd-pagehead.html %}
 
       <section class="page__content" itemprop="text">
-        {% if page.toc %}
-          <aside class="sidebar__right {% if page.toc_sticky %}sticky{% endif %}">
-            <nav class="toc">
-              <header><h4 class="nav__title"><i class="fas fa-{{ page.toc_icon | default: 'file-alt' }}"></i> {{ page.toc_label | default: site.data.ui-text[site.locale].toc_label | default: "On this page" }}</h4></header>
-              {% include toc.html sanitize=true html=content h_min=1 h_max=6 class="toc__menu" skip_no_ids=true %}
-            </nav>
-          </aside>
+        <style>
+          /* One list, grouped by format. Each entry is a hairline row:
+             the title leads, the meta sits in a quiet column beside it. */
+          .talks { margin: 0; }
+
+          .talks > h2 {
+            margin: 0 0 1.5rem;
+            padding-bottom: .85rem;
+            border-bottom: 1px solid var(--ink);
+            font-size: .78rem;
+            font-weight: 600;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--ink);
+          }
+          .talks + .talks { margin-top: 4.5rem; }
+
+          .talk-list { margin: 0 0 1rem; padding: 0; list-style: none; }
+
+          .talk {
+            display: grid;
+            grid-template-columns: 1fr 210px;
+            gap: 1.5rem 2rem;
+            align-items: start;
+            padding: 1.6rem 0;
+            border-bottom: 1px solid var(--rule);
+            transition: background .15s ease;
+          }
+          .talk:hover { background: var(--paper-alt); }
+
+          .talk-title {
+            margin: 0;
+            font-size: 1.08rem;
+            font-weight: 600;
+            line-height: 1.45;
+            letter-spacing: -0.012em;
+            color: var(--ink);
+            text-wrap: pretty;
+          }
+          .talk-presenter {
+            margin: .5rem 0 0;
+            color: var(--muted);
+            font-size: .92rem;
+          }
+          .talk-presenter strong {
+            color: var(--ink-soft);
+            font-weight: 500;
+          }
+
+          /* Meta column: affiliation over time, right-aligned on wide screens. */
+          .talk-meta {
+            display: flex;
+            flex-direction: column;
+            gap: .3rem;
+            padding-top: .15rem;
+            text-align: right;
+          }
+          .talk-affil {
+            font-size: .72rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+          }
+          .talk-time {
+            color: var(--muted);
+            font-size: .84rem;
+            font-variant-numeric: tabular-nums;
+          }
+
+          @media (max-width: 720px) {
+            .talk { grid-template-columns: 1fr; gap: .65rem; }
+            .talk-meta {
+              flex-direction: row;
+              gap: .9rem;
+              text-align: left;
+              order: -1;
+              align-items: baseline;
+            }
+          }
+        </style>
+
+        {% assign orals = site.data.presentations | where: "type", "Oral" %}
+        {% assign posters = site.data.presentations | where: "type", "Poster" %}
+
+        {% if orals.size > 0 %}
+          <section class="talks">
+            <h2>Oral Presentations</h2>
+            <ul class="talk-list">
+              {% for talk in orals %}
+                <li class="talk">
+                  <div>
+                    <h3 class="talk-title">{{ talk.title }}</h3>
+                    <p class="talk-presenter">Presented by <strong>{{ talk.presenter }}</strong></p>
+                  </div>
+                  <div class="talk-meta">
+                    <span class="talk-affil">{{ talk.affiliation }}</span>
+                    <span class="talk-time">{{ talk.time }}</span>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </section>
         {% endif %}
-        
-        <!-- ===== Presentations (Oral & Poster) ===== -->
-        <div class="presentations">
 
-          <style>
-            .presentations{
-              --brand:#2a7ae2;
-              --ink:#123665;
-              --surface:#eef5ff;
-              --border:#cfe1ff;
-              --muted:#5976a8;
-              --shadow:rgba(42,122,226,.09);
-              max-width: 900px;
-              margin: 0 auto;
-            }
-
-            .presentations .talk-list{
-              display: flex;
-              flex-direction: column;
-              gap: 1rem;
-              padding: 0;
-              margin: 0;
-              list-style: none;
-            }
-
-            .presentations .talk-card{
-              background: var(--surface);
-              border: 1px solid var(--border);
-              border-radius: 14px;
-              padding: 1.1rem 1.25rem;
-              transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
-            }
-            .presentations .talk-card:hover{
-              border-color:#b9d1ff;
-              box-shadow: 0 6px 20px var(--shadow);
-              transform: translateY(-1px);
-            }
-
-            /* --- Meta row: type · affiliation · time --- */
-            .presentations .talk-meta-top{
-              display: flex;
-              align-items: center;
-              flex-wrap: wrap;
-              gap: .5rem;
-              margin-bottom: .65rem;
-            }
-            .presentations .chip{
-              display: inline-block;
-              font-size: .75rem;
-              font-weight: 700;
-              letter-spacing: .04em;
-              text-transform: uppercase;
-              border-radius: 999px;
-              padding: .22rem .6rem;
-              white-space: nowrap;
-            }
-            .presentations .chip.type-oral{
-              background: var(--brand);
-              color: #fff;
-            }
-            .presentations .chip.type-poster{
-              background: #fff;
-              color: var(--brand);
-              box-shadow: inset 0 0 0 1.5px var(--brand);
-            }
-            .presentations .chip.affil{
-              background: #dbe7ff;
-              color: #1f3b7b;
-              text-transform: none;
-              letter-spacing: .02em;
-            }
-            .presentations .talk-time{
-              margin-left: auto;
-              color: var(--muted);
-              font-size: .88rem;
-              font-weight: 700;
-              white-space: nowrap;
-            }
-
-            /* --- Title + presenter --- */
-            .presentations .talk-title{
-              margin: 0 0 .5rem;
-              font-size: clamp(1rem, .95rem + .35vw, 1.12rem);
-              font-weight: 700;
-              color: var(--ink);
-              line-height: 1.45;
-            }
-            .presentations .talk-presenter{
-              margin: 0;
-              color: var(--muted);
-              font-size: .93rem;
-            }
-            .presentations .talk-presenter strong{
-              color: #1c2f55;
-              font-weight: 700;
-            }
-
-            @media (max-width: 560px){
-              .presentations .talk-card{ padding: .95rem 1rem; }
-              .presentations .talk-time{
-                margin-left: 0;
-                flex-basis: 100%;
-              }
-            }
-          </style>
-
-          <ul class="talk-list">
-            {% for talk in site.data.presentations %}
-              <li class="talk-card">
-                <div class="talk-meta-top">
-                  <span class="chip type-{{ talk.type | downcase }}">{{ talk.type }}</span>
-                  <span class="chip affil">{{ talk.affiliation }}</span>
-                  <span class="talk-time">{{ talk.time }}</span>
-                </div>
-
-                <h3 class="talk-title">{{ talk.title }}</h3>
-                <p class="talk-presenter">Presenter: <strong>{{ talk.presenter }}</strong></p>
-              </li>
-            {% endfor %}
-          </ul>
-
-        </div>
-        <!-- ===== /Presentations ===== -->
-
-        {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
+        {% if posters.size > 0 %}
+          <section class="talks">
+            <h2>Poster Presentations</h2>
+            <ul class="talk-list">
+              {% for talk in posters %}
+                <li class="talk">
+                  <div>
+                    <h3 class="talk-title">{{ talk.title }}</h3>
+                    <p class="talk-presenter">Presented by <strong>{{ talk.presenter }}</strong></p>
+                  </div>
+                  <div class="talk-meta">
+                    <span class="talk-affil">{{ talk.affiliation }}</span>
+                    <span class="talk-time">{{ talk.time }}</span>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </section>
+        {% endif %}
       </section>
-
-      <footer class="page__meta">
-        {% if site.data.ui-text[site.locale].meta_label %}
-          <h4 class="page__meta-title">{{ site.data.ui-text[site.locale].meta_label }}</h4>
-        {% endif %}
-        {% include page__taxonomy.html %}
-        {% include page__date.html %}
-      </footer>
-
-      {% if page.share %}{% include social-share.html %}{% endif %}
-
-      {% include post_pagination.html %}
     </div>
-
-    {% if site.comments.provider and page.comments %}
-      {% if jekyll.environment == 'production' %}
-        {% include comments.html %}
-      {% else %}
-        <p>
-          Comments are configured with provider: <strong>{{ site.comments.provider }}</strong>,
-          but are disabled in non-production environments.
-        </p>
-      {% endif %}
-    {% endif %}
   </article>
-
-  {% comment %}<!-- only show related on a post page when `related: true` -->{% endcomment %}
-  {% if page.id and page.related and site.related_posts.size > 0 %}
-    {% include page__related.html posts=site.related_posts %}
-  {% comment %}<!-- otherwise show recent posts if no related when `related: true` -->{% endcomment %}
-  {% elsif page.id and page.related %}
-    {% include page__related.html posts=site.posts %}
-  {% endif %}
 </div>

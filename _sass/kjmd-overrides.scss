@@ -1,255 +1,396 @@
 /* ==========================================================================
-   KJMD site overrides
+   KJMD 2026 — site design
    Loaded after the theme so these declarations win.
+
+   Direction: white paper, hairline rules, one accent taken from the logo
+   (#003060). Information is set as labelled records separated by rules
+   rather than tinted cards — the page reads like a well-set index.
    ========================================================================== */
 
-/* --- Shared design tokens (pastel blue palette used across custom layouts) --- */
 :root {
-  --kjmd-brand:      #2a7ae2;
-  --kjmd-ink:        #123665;
-  --kjmd-surface:    #eef5ff;
-  --kjmd-surface-2:  #dbe7ff;
-  --kjmd-border:     #cfe1ff;
-  --kjmd-border-2:   #b8d0ff;
-  --kjmd-muted:      #5976a8;
-  --kjmd-shadow:     rgba(42, 122, 226, 0.10);
+  --ink:        #111418;  /* primary text */
+  --ink-soft:   #3d454f;  /* secondary text */
+  --muted:      #6b7480;  /* labels, meta */
+  --rule:       #e3e6ea;  /* hairlines */
+  --rule-soft:  #eef0f3;
+  --paper:      #ffffff;
+  --paper-alt:  #fafbfc;  /* used sparingly, for hover only */
+  --accent:     #003060;  /* from the KJMD 2026 logo */
+  --accent-lit: #0a4a8c;
 }
 
-/* --- Navigation: the theme hardcodes $sans-serif on the greedy nav.
-       Bring it in line with the rest of the site. --- */
-.greedy-nav,
-.greedy-nav a,
-.greedy-nav .visible-links a,
-.greedy-nav .hidden-links a,
-.dropdown-menu,
-.dropdown-menu a,
-.masthead__menu-item a {
-  font-family: $kjmd-serif;
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* --- Footer: give the page some breathing room and tidy the copyright line --- */
-.page__footer {
-  margin-top: 4.5em;
-  border-top: 1px solid $border-color;
+a { color: var(--accent); }
+a:hover, a:focus { color: var(--accent-lit); }
 
-  footer {
-    margin-top: 0;
-    padding: 2.25em 1em 2.5em;
-    text-align: center;
+/* Visible keyboard focus everywhere. */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Masthead — logo left, links centred, hairline underneath
+   -------------------------------------------------------------------------- */
+
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+  animation: none;
+}
+
+.masthead__inner-wrap {
+  padding: 0.9em 1.5em;
+  max-width: 1240px;
+  font-family: $global-font-family;
+
+  @include breakpoint($x-large) {
+    max-width: 1240px;
   }
 }
 
-/* The theme renders an empty .page__footer-follow div; collapse it so it
-   doesn't add stray vertical space above the copyright. */
+/* The theme puts the logo, title and links in one <nav> and runs
+   GreedyNav.js over it, which measures widths with jQuery. Keep the
+   flex layout it expects; only the alignment is changed. */
+.masthead .greedy-nav {
+  background: transparent;
+  align-items: center;
+}
+
+.masthead .site-logo {
+  display: flex;
+  align-items: center;
+}
+.masthead .site-logo img {
+  max-height: 2.4rem;
+  width: auto;
+}
+
+.masthead .site-title {
+  display: none;   /* the logo already carries the name */
+}
+
+/* Centre the link row: the logo sits left, links take the remaining
+   space and centre themselves within it. */
+.greedy-nav .visible-links {
+  flex: 1 1 auto;
+  justify-content: center;
+}
+
+/* Space the items from the list, so the dropdown parents (whose <a> the
+   theme also margins) and the plain links sit on the same rhythm. */
+.greedy-nav .visible-links li { margin: 0 0.5rem; }
+
+.greedy-nav .visible-links a,
+.masthead__menu-item.has-dropdown .dropdown-toggle {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0.5em 1.15em;
+  color: var(--ink-soft);
+  font-family: $global-font-family;
+  font-size: 0.86rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.greedy-nav .visible-links a:hover,
+.masthead__menu-item.has-dropdown .dropdown-toggle:hover {
+  color: var(--accent);
+}
+
+/* The theme animates a thick underline on nav links; replace it with a
+   quiet accent rule that only appears on hover / for the current page. */
+.greedy-nav .visible-links a:before,
+.greedy-nav .visible-links a:after {
+  display: none !important;
+}
+
+.greedy-nav .visible-links a::after {
+  display: block !important;
+  content: "";
+  position: absolute;
+  left: 1.15em;
+  right: 1.15em;
+  bottom: 0.15em;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform 0.18s ease;
+}
+.greedy-nav .visible-links a:hover::after { transform: scaleX(1); }
+
+.greedy-nav__toggle { color: var(--ink); }
+.greedy-nav .navicon,
+.greedy-nav .navicon:before,
+.greedy-nav .navicon:after { background: var(--ink); }
+
+/* Dropdowns: square, hairline, no tint or arrow. */
+.masthead__menu-item.has-dropdown .dropdown-menu {
+  min-width: 230px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  box-shadow: 0 6px 24px rgba(17, 20, 24, 0.08);
+  margin-top: 2px;
+  padding: 0.3rem 0;
+
+  &:before, &:after { display: none; }
+
+  li a {
+    padding: 0.6rem 1.1rem;
+    border-bottom: 0;
+    color: var(--ink-soft);
+    font-size: 0.86rem;
+    font-weight: 500;
+
+    &:hover {
+      background: var(--paper-alt);
+      color: var(--accent);
+    }
+  }
+}
+
+.masthead__menu-item.has-dropdown .dropdown-toggle i {
+  font-size: 0.62em;
+  margin-left: 7px;
+  opacity: 0.5;
+  vertical-align: middle;
+}
+
+/* Hidden-links overflow menu inherits the same treatment. */
+.greedy-nav .hidden-links {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  box-shadow: 0 6px 24px rgba(17, 20, 24, 0.08);
+
+  &:before { display: none; }
+
+  a { color: var(--ink-soft); font-size: 0.86rem; }
+  a:hover { color: var(--accent); }
+}
+
+/* --------------------------------------------------------------------------
+   Page shell
+   -------------------------------------------------------------------------- */
+
+/* The home page hero is full-bleed, so #main must not inset it. Inner
+   pages get their measure from .page__inner-wrap instead. */
+.kjmd-home#main {
+  max-width: 100%;
+  padding-inline: 0;
+  animation: none;
+}
+
+/* No page here uses the right sidebar; reclaim the reserved space. */
+.page {
+  @include breakpoint($large)   { width: 100%; padding-inline-end: 0; }
+  @include breakpoint($x-large) { width: 100%; padding-inline-end: 0; }
+}
+
+.page__inner-wrap {
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  float: none;
+
+  @include breakpoint($medium) { padding-inline: 2rem; }
+}
+
+.page__content {
+  padding-bottom: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+
+  > *:last-child { margin-bottom: 0; }
+
+  /* The theme underlines every h2 with a border; the design uses rules
+     deliberately, so remove the automatic one. */
+  h2 { padding-bottom: 0; border-bottom: 0; }
+
+  a { text-decoration: none; border-bottom: 1px solid rgba(0, 48, 96, 0.28); }
+  a:hover { border-bottom-color: var(--accent); }
+}
+
+/* Collapse the theme's empty scaffolding so it can't add stray space. */
+.page__meta:empty,
 .page__footer-follow:empty,
-.page__footer-follow > ul:empty {
-  display: none;
+.page__footer-follow > ul:empty { display: none; }
+
+/* Breadcrumbs removed from the design; hidden here as a safety net. */
+.breadcrumbs { display: none; }
+
+/* --------------------------------------------------------------------------
+   Page header — the eyebrow / title / rule pattern used on every inner page
+   -------------------------------------------------------------------------- */
+
+.kjmd-pagehead {
+  margin: 0 0 3.5rem;
+  padding-top: 3.5rem;
+}
+
+.kjmd-pagehead .eyebrow {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.kjmd-pagehead h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  color: var(--ink);
+}
+
+.kjmd-pagehead .lede {
+  margin: 1rem 0 0;
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.kjmd-pagehead .rule {
+  margin-top: 2rem;
+  height: 2px;
+  width: 56px;
+  background: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   Record list — the signature device.
+   A labelled row set against a hairline. Replaces every tinted card.
+   -------------------------------------------------------------------------- */
+
+.kjmd-records {
+  margin: 0 0 3rem;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.kjmd-record {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.kjmd-record .label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+.kjmd-record .value {
+  color: var(--ink);
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.kjmd-record .value a { color: var(--accent); }
+
+@media (max-width: 640px) {
+  .kjmd-record {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Section heading used inside pages
+   -------------------------------------------------------------------------- */
+
+.kjmd-section { margin: 0 0 3.5rem; }
+
+.kjmd-section > h2 {
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--ink);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.page__footer {
+  margin-top: 6rem;
+  border-top: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--muted);
+  animation: none;
+
+  footer {
+    max-width: 1080px;
+    margin-inline: auto;
+    margin-top: 0;
+    padding: 2.5rem 1.5rem 3rem;
+
+    @include breakpoint($medium) { padding-inline: 2rem; }
+    @include breakpoint($x-large) { max-width: 1080px; }
+  }
+
+  a { color: var(--muted); border-bottom: 0; }
+  a:hover { color: var(--accent); }
 }
 
 .page__footer-copyright {
-  font-size: $type-size-6;
-  line-height: 1.7;
-  letter-spacing: 0.01em;
-
-  .copyright-line {
-    display: block;
-  }
-
-  .copyright-sep {
-    margin: 0 0.5em;
-    opacity: 0.45;
-  }
-}
-
-/* --- Wide pages: no page on this site uses the right sidebar, so let a
-       `classes: wide` page reclaim the space the theme reserves for it.
-       The theme's own .wide rule only zeroes the padding, leaving the
-       width still reduced by the sidebar. --- */
-.wide {
-  .page {
-    @include breakpoint($large) {
-      width: 100%;
-    }
-
-    @include breakpoint($x-large) {
-      width: 100%;
-    }
-  }
-
-  /* Keep the measure readable and hold a gutter at every width. */
-  .page__inner-wrap {
-    max-width: 1200px;
-    margin-inline: auto;
-    padding-inline: 1.5em;
-    float: none;
-
-    @include breakpoint($medium) {
-      padding-inline: 2em;
-    }
-  }
-}
-
-/* --- Page rhythm: the last block inside a page shouldn't hug the footer --- */
-.page__content {
-  padding-bottom: 1.5rem;
-
-  > *:last-child {
-    margin-bottom: 0;
-  }
-}
-
-/* The theme's empty page__meta footer leaves a gap on content-only pages. */
-.page__meta:empty {
-  display: none;
-}
-
-
-/* ==========================================================================
-   Shared "place" card UI — Venue, Accommodation and Cuisines
-   ========================================================================== */
-/* Shared "place" card UI — also used by Accommodation and Cuisines */
-.place-block{
-  --brand:#2a7ae2;
-  --ink:#123665;
-  --surface:#eef5ff;
-  --surface-2:#dbe7ff;
-  --border:#cfe1ff;
-  --muted:#5976a8;
-  --shadow:rgba(42,122,226,.10);
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.place-block .place-title{
-  margin: 0 0 .35rem;
-  text-align: center;
-  color: var(--brand);
-  /* unquote() keeps the expression literal: the Ruby Sass used by GitHub
-     Pages would otherwise try to evaluate "1.2rem + 1.6vw" at compile time
-     and fail on incompatible units. */
-  font-size: unquote("clamp(1.6rem, 1.2rem + 1.6vw, 2.2rem)");
-  font-weight: 700;
-  line-height: 1.25;
-}
-.place-block .place-subtitle{
-  margin: 0 0 2rem;
-  text-align: center;
+  font-family: $global-font-family;
+  font-size: 0.78rem;
+  line-height: 1.8;
   color: var(--muted);
-  font-size: .95rem;
+
+  .copyright-line { display: block; }
+  .copyright-line + .copyright-line { margin-top: 0.15rem; }
+  .copyright-sep { margin: 0 0.5em; opacity: 0.4; }
 }
 
-/* Photo (or a placeholder while the photo is pending) */
-.place-block figure{
-  margin: 0 0 1.75rem;
-  width: 100%;
-}
-.place-block figure img{
-  width: 100%;
-  height: auto;
-  border-radius: 14px;
-  display: block;
-}
-.place-block .photo-placeholder{
-  width: 100%;
-  aspect-ratio: unquote("3 / 1");  /* unquoted: Ruby Sass would divide it to "3" */
-  border-radius: 14px;
-  border: 1px dashed var(--border);
-  background: var(--surface);
-  display: grid;
-  place-items: center;
-  color: var(--muted);
-  gap: .5rem;
-  text-align: center;
-  padding: 1rem;
-}
-.place-block .photo-placeholder i{
-  font-size: 1.8rem;
-  opacity: .55;
-}
-.place-block .photo-placeholder span{ font-size: .9rem; }
+/* --------------------------------------------------------------------------
+   Motion
+   -------------------------------------------------------------------------- */
 
-/* Info grid — replaces the old bullet list */
-.place-block .info-grid{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-  gap: .85rem;
-  margin: 0 0 1.75rem;
-  padding: 0;
-  list-style: none;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
-.place-block .info-item{
-  display: flex;
-  align-items: flex-start;
-  gap: .85rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: .9rem 1rem;
-}
-.place-block .info-icon{
-  flex: 0 0 34px;
-  width: 34px; height: 34px;
-  border-radius: 9px;
-  background: var(--surface-2);
-  color: var(--brand);
-  display: grid;
-  place-items: center;
-  font-size: .9rem;
-}
-.place-block .info-body{ min-width: 0; }
-.place-block .info-label{
-  display: block;
-  font-size: .74rem;
-  font-weight: 700;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: .2rem;
-}
-.place-block .info-value{
-  display: block;
-  color: var(--ink);
-  line-height: 1.55;
-  overflow-wrap: anywhere;
-}
-.place-block .info-value a{ color: var(--brand); }
-
-/* Map */
-.place-block .map-embed{
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  margin-bottom: 1.25rem;
-}
-.place-block .map-embed .ratio{ position: relative; padding-top: 56.25%; }
-.place-block .map-embed iframe{
-  position: absolute; inset: 0;
-  width: 100%; height: 100%; border: 0;
-}
-
-.place-block .map-link{
-  display: flex;
-  justify-content: center;
-}
-.place-block .map-link a{
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  background: var(--brand);
-  color: #fff;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: .92rem;
-  padding: .6rem 1.15rem;
-  border-radius: 999px;
-  transition: background .15s ease, transform .15s ease;
-}
-.place-block .map-link a:hover{
-  background: #1f63c0;
-  transform: translateY(-1px);
-}
-
-@media (max-width: 560px){
-  .place-block .info-grid{ grid-template-columns: 1fr; }
-}
-          
