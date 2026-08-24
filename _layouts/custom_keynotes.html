@@ -125,6 +125,8 @@ layout: default
             max-width: 72ch;
             color: var(--ink-soft);
             line-height: 1.75;
+            text-align: justify;
+            hyphens: auto;
           }
           .kn-section p:last-child { margin-bottom: 0; }
 
@@ -141,6 +143,7 @@ layout: default
           @media (max-width: 700px) {
             .kn-head { grid-template-columns: 1fr; gap: 1.5rem; }
             .kn-portrait { max-width: 180px; }
+            .kn-section p { text-align: left; hyphens: none; }
             .kn-section p.has-dropcap::first-letter { font-size: 2.8em; }
           }
         </style>

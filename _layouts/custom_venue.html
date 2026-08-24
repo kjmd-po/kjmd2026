@@ -26,8 +26,14 @@ layout: default
           }
 
           .place-photo { margin: 0 0 3rem; }
+          /* A wide crop rather than the full frame: the photo is context,
+             not the subject of the page. */
           .place-photo img {
-            width: 100%; height: auto;
+            width: 100%;
+            height: auto;
+            max-height: 320px;
+            object-fit: cover;
+            object-position: center;
             display: block;
             border-radius: 2px;
           }

@@ -53,7 +53,7 @@ layout: default
 
           .sched-row {
             display: grid;
-            grid-template-columns: 145px 250px 1fr;
+            grid-template-columns: 145px 1fr;
             gap: 1.5rem;
             align-items: baseline;
             padding: 1.15rem 0;
@@ -70,6 +70,11 @@ layout: default
             white-space: nowrap;
           }
 
+          .sched-body {
+            display: block;
+            line-height: 1.6;
+          }
+
           .sched-session {
             font-size: .72rem;
             font-weight: 600;
@@ -81,10 +86,22 @@ layout: default
              the accent so the shape of the program is legible at a glance. */
           .sched-row.is-feature .sched-session { color: var(--accent); }
 
+          /* The detail continues the session label on the same line, so a
+             keynote reads as one phrase: KEYNOTE — Prof. Sourav S. Bhowmick */
           .sched-detail {
             color: var(--ink-soft);
             line-height: 1.6;
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 1rem;
+            font-weight: 400;
           }
+          .sched-detail::before {
+            content: "\2014";
+            margin: 0 .55rem 0 .5rem;
+            color: var(--rule);
+          }
+          .sched-detail a { color: var(--accent); }
 
           @media (max-width: 780px) {
             .sched-row {
@@ -110,12 +127,16 @@ layout: default
 
             <li class="sched-row{% if row.highlight %} is-feature{% endif %}">
               <span class="sched-time">{{ row.time }}</span>
-              <span class="sched-session">{{ row.session }}</span>
-              <span class="sched-detail">
-                {%- if row.link -%}
-                  <a href="{{ row.link | relative_url }}">{{ row.details }}</a>
-                {%- else -%}
-                  {{ row.details }}
+              <span class="sched-body">
+                <span class="sched-session">{{ row.session }}</span>
+                {%- if row.details -%}
+                  <span class="sched-detail">
+                    {%- if row.link -%}
+                      <a href="{{ row.link | relative_url }}">{{ row.details }}</a>
+                    {%- else -%}
+                      {{ row.details }}
+                    {%- endif -%}
+                  </span>
                 {%- endif -%}
               </span>
             </li>
