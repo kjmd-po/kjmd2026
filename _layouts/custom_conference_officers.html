@@ -4,50 +4,120 @@ layout: default
 
 
 <style>
-    /* 이 블록은 이 페이지 안에서만 적용됩니다 */
+    /* Scoped to the Conference Officers page */
+    .officers{
+      --brand:#2a7ae2;
+      --ink:#123665;
+      --surface:#eef5ff;
+      --border:#cfe1ff;
+      --muted:#5976a8;
+      --shadow:rgba(42,122,226,.10);
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
     .officers .section-title{
-    border-left: 6px solid #2a7ae2;       /* 왼쪽 세로줄 색/두께 */
-    padding-left: .9rem;                   /* 제목과 세로줄 간격 */
-    margin: 2rem 0 1rem;
-    font-weight: 700;
+      border-left: 5px solid var(--brand);
+      padding-left: .85rem;
+      margin: 2.5rem 0 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: clamp(1.3rem, 1.1rem + .7vw, 1.6rem);
     }
+    .officers .section-title:first-child{ margin-top: .5rem; }
+
     .officers .officer-list{
-    list-style: none;                      /* 불릿 제거 */
-    padding: 0;
-    margin: .25rem 0 2rem;
-    }
-    .officers .officer-list li{ margin: .35rem 0; }
-    .officers .name{ font-weight: 700; }     /* 이름은 진하게 */
-    .officers .affil{
-    color: #6f7e8b;                        /* 소속은 회색 */
-    font-size: .9em;                       /* 살짝 작게 */
-    margin-left: .25rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
     }
 
     .officers .officer-list li{
-    display: flex;
-    align-items: center;
-    gap: .25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: .85rem 1rem;
+      transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
     }
+    .officers .officer-list li:hover{
+      border-color:#b9d1ff;
+      box-shadow: 0 4px 16px var(--shadow);
+      transform: translateY(-1px);
+    }
+
+    /* Photo — General Chairs only */
+    .officers .officer-photo{
+      flex: 0 0 58px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #dfeaff;
+      box-shadow: inset 0 0 0 1px var(--border);
+    }
+    .officers .officer-photo img{
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Placeholder initial when no photo file is set yet */
+    .officers .officer-photo.is-empty{
+      display: grid;
+      place-items: center;
+      color: var(--brand);
+      font-weight: 700;
+      font-size: 1.35rem;
+    }
+
+    .officers .officer-body{
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .officers .name{
+      display: block;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.35;
+    }
+    .officers .affil{
+      display: block;
+      color: var(--muted);
+      font-size: .9rem;
+      margin-top: .15rem;
+    }
+
+    /* Homepage link lives in the icon button */
     .officers .home-link{
-    margin-left: auto;              /* 오른쪽 끝으로 밀기 */
-    display: inline-grid;
-    place-items: center;
-    width: 28px; height: 28px;      /* 정사각형 버튼 */
-    border: 1.5px solid #c7d1db;  /* 아웃라인 */
-    border-radius: 6px;
-    color: #6f7e8b;               /* 아이콘 회색 */
-    text-decoration: none;
+      flex: 0 0 auto;
+      margin-left: auto;
+      display: inline-grid;
+      place-items: center;
+      width: 34px; height: 34px;
+      border: 1.5px solid #c7d1db;
+      border-radius: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      background: #fff;
+      transition: border-color .15s ease, color .15s ease, background .15s ease;
     }
     .officers .home-link:hover,
     .officers .home-link:focus{
-    border-color: #2a7ae2;        /* 호버 시 포인트 색상 */
-    color: #2a7ae2;
-    outline: none;
+      border-color: var(--brand);
+      color: var(--brand);
+      background: #f4f9ff;
+      outline: none;
     }
-    .officers .home-link i{
-    font-size: .95rem;
-    line-height: 1;
+    .officers .home-link i{ font-size: .95rem; line-height: 1; }
+
+    @media (max-width: 480px){
+      .officers .officer-list li{ padding: .75rem .85rem; gap: .8rem; }
+      .officers .officer-photo{ flex-basis: 48px; width: 48px; height: 48px; }
     }
 </style>
 
@@ -102,50 +172,53 @@ layout: default
         
         <div class="officers">
 
-            <h2 class="section-title">General Chairs</h2>
-            <ul class="officer-list">
-            <li>
-                <span class="name">Wook-Shin Han</span>
-                <span class="affil">POSTECH, Korea</span>
-                <a class="home-link" href="https://wscrony.github.io/" target="_blank" rel="noopener" aria-label="Wook-Shin Han homepage">
-                <i class="fas fa-home" aria-hidden="true"></i>
-                </a>
-            </li>
-            <li>
-                <span class="name">Makoto Onizuka</span>
-                <span class="affil">Osaka University (UOsaka), Japan</span>
-                <a class="home-link" href="https://www-bigdata.ist.osaka-u.ac.jp/en/onizuka/" target="_blank" rel="noopener" aria-label="Makato Onizuka Homepage">
-                <i class="fas fa-home" aria-hidden="true"></i>
-                </a>
-            </li>
-            </ul>
+          <h2 class="section-title">General Chairs</h2>
+          <ul class="officer-list">
+            {% for person in site.data.officers.general_chairs %}
+              <li>
+                {% if person.photo %}
+                  <div class="officer-photo">
+                    <img src="{{ person.photo | relative_url }}" alt="{{ person.name }}" loading="lazy">
+                  </div>
+                {% else %}
+                  <div class="officer-photo is-empty" aria-hidden="true">{{ person.name | slice: 0, 1 }}</div>
+                {% endif %}
 
+                <div class="officer-body">
+                  <span class="name">{{ person.name }}</span>
+                  <span class="affil">{{ person.affiliation }}</span>
+                </div>
 
-            <h2 class="section-title">Organization Chairs</h2>
-            <ul class="officer-list">
-            <li>
-                <span class="name">Joohyung Yun</span>
-                <span class="affil">POSTECH, Korea</span>
-                <a class="home-link" href="https://joohyung00.github.io/" target="_blank" rel="noopener" aria-label="Joohyung Yun homepage">
-                <i class="fas fa-home" aria-hidden="true"></i>
-                </a>
-            </li>
-            <li>
-                <span class="name">Guangcan Li</span>
-                <span class="affil">Osaka University (UOsaka), Japan</span>
-            </li>
-            </ul>
+                {% if person.url %}
+                  <a class="home-link" href="{{ person.url }}" target="_blank" rel="noopener"
+                     aria-label="{{ person.name }} homepage" title="{{ person.name }} homepage">
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  </a>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
 
-            <!-- 필요하면 섹션을 계속 추가 -->
-            <!-- <h2 class="section-title">Associate Editors</h2>
-            <ul class="officer-list">
-                <li><span class="name">Firstname Lastname</span><span class="affil">Affiliation, Country</span></li>
-                <li><span class="name">Firstname Lastname</span><span class="affil">Affiliation, Country</span></li>
-            </ul> -->
+          <h2 class="section-title">Organization Chairs</h2>
+          <ul class="officer-list">
+            {% for person in site.data.officers.organization_chairs %}
+              <li>
+                <div class="officer-body">
+                  <span class="name">{{ person.name }}</span>
+                  <span class="affil">{{ person.affiliation }}</span>
+                </div>
+
+                {% if person.url %}
+                  <a class="home-link" href="{{ person.url }}" target="_blank" rel="noopener"
+                     aria-label="{{ person.name }} homepage" title="{{ person.name }} homepage">
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  </a>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
 
         </div>
-
-
 
         {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
       </section>

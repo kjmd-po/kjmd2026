@@ -50,63 +50,85 @@ layout: default
         {% endif %}
 
 
-        <!-- ===== Venue: Busan Hotel ===== -->
-        <section class="venue-block" aria-label="Venue">
-
-          <style>
-            /* Palette already used on your site */
-            .accom-block{
-              --hdr:#dbe7ff;        /* header cells */
-              --hdr-fg:#163a76;
-              --row:#eef5ff;        /* body rows */
-              --br:#cfe1ff;
-              --shadow:rgba(42,122,226,.10);
-            }
+        <!-- ===== Venue: TKP Yokohama Conference Center ===== -->
+        <section class="place-block" aria-label="Venue">
 
 
-            /* Image: half the container, centered */
+          <h2 class="place-title">TKP Yokohama Conference Center</h2>
+          <p class="place-subtitle">TKP横浜会議室</p>
 
-            /* Info list, map, tables should all align to the same container width */
-            .accom-block .map-embed,
-
-            /* Responsive map with the same width as the container */
-            .accom-block .map-embed{ border-radius:12px; overflow:hidden; }
-            .accom-block .map-embed .ratio{ position:relative; padding-top:56.25%; }
-            .accom-block .map-embed iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
-            .accom-block .map-embed { max-width: 980px; margin: 0 auto 1.5rem; }
-
-          </style>
-
-          <h2 style="font-size:clamp(1.75rem,1.2rem + 2vw,2.5rem);font-weight:800;margin:0 0 .75rem;text-align:center;color:var(--mm-primary,#2a7ae2);">
-            Haeundae Marianne Hotel
-          </h2>
-
-          <!-- 1) Your hero image (replace the path if needed) -->
-          <figure style="margin:0 auto 1rem; width:50%;">
-            <img src="{{ '/assets/images/marianne.jpg' | relative_url }}"
-                alt="Haeundae Marianne Hotel"
-                style="width:100%; height:auto; border-radius:12px; display:block;">
+          <!-- Venue photo — replace the placeholder with the real photo when available -->
+          <figure>
+            <div class="photo-placeholder">
+              <i class="fas fa-image" aria-hidden="true"></i>
+              <span>Venue photo to be added</span>
+            </div>
+            <!--
+            <img src="{{ '/assets/images/venue/tkp-yokohama.jpg' | relative_url }}"
+                 alt="TKP Yokohama Conference Center">
+            -->
           </figure>
 
-          <!-- 2) Hotel info (fill the fields below using the official site) -->
-          <div class="info">
-              <ul>
-                <li><strong>Address:</strong> Busan, Haeundae-gu, Haeundaehaebyeon-ro, 310 마리안느호텔</li>
-                <li><strong>Tel:</strong> +82-51-760-9000</li>
-                <li><strong>Website:</strong> <a href="http://www.mariannehotel.com/" target="_blank" rel="noopener">http://www.mariannehotel.com/</a></li>
-                <li><strong>Getting there:</strong> ~100 m from <em>Haeundae Station</em></li>
-                <li><strong>Check-in / Check-out:</strong> 15:00 / 11:00</li>
-              </ul>
-            </div>
+          <ul class="info-grid">
+            <li class="info-item">
+              <span class="info-icon"><i class="fas fa-map-marker-alt" aria-hidden="true"></i></span>
+              <span class="info-body">
+                <span class="info-label">Address</span>
+                <span class="info-value">
+                  SY Building 7F, 3-30-8 Tsuruyacho, Kanagawa Ward,<br>
+                  Yokohama, Kanagawa 221-0835, Japan
+                </span>
+              </span>
+            </li>
 
-          <!-- 3) Google Maps embed (your exact URL) -->
+            <li class="info-item">
+              <span class="info-icon"><i class="fas fa-train" aria-hidden="true"></i></span>
+              <span class="info-body">
+                <span class="info-label">Getting there</span>
+                <span class="info-value">6-minute walk from the West Exit of Yokohama Station</span>
+              </span>
+            </li>
+
+            <li class="info-item">
+              <span class="info-icon"><i class="fas fa-phone" aria-hidden="true"></i></span>
+              <span class="info-body">
+                <span class="info-label">Tel</span>
+                <span class="info-value"><a href="tel:+81453221361">+81-45-322-1361</a></span>
+              </span>
+            </li>
+
+            <li class="info-item">
+              <span class="info-icon"><i class="fas fa-globe" aria-hidden="true"></i></span>
+              <span class="info-body">
+                <span class="info-label">Website</span>
+                <span class="info-value">
+                  <a href="https://www.kashikaigishitsu.net/facilitys/bc-yokohama/" target="_blank" rel="noopener">
+                    kashikaigishitsu.net
+                  </a>
+                </span>
+              </span>
+            </li>
+          </ul>
+
           <div class="map-embed">
-              <div class="ratio">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.8031657295373!2d129.1645654!3d35.1615294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35688d67ff8b65a3%3A0x2060ce46c6b14df6!2sHaeundae%20Marianne%20Hotel!5e0!3m2!1sen!2skr!4v1761747003532!5m2!1sen!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-              </div>
+            <div class="ratio">
+              <iframe
+                title="Map: TKP Yokohama Conference Center"
+                src="https://www.google.com/maps?q=%E3%80%92221-0835+Kanagawa%2C+Yokohama%2C+Kanagawa+Ward%2C+Tsuruyacho%2C+3+Chome-30-8+SY+Building+7F&output=embed"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
+              </iframe>
             </div>
-        </section>
+          </div>
 
+          <div class="map-link">
+            <a href="https://www.google.com/maps/search/?api=1&query=%E3%80%92221-0835+Kanagawa%2C+Yokohama%2C+Kanagawa+Ward%2C+Tsuruyacho%2C+3+Chome-30-8+SY+Building+7F"
+               target="_blank" rel="noopener">
+              <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+              Open in Google Maps
+            </a>
+          </div>
+
+        </section>
 
         {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
       </section>

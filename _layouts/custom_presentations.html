@@ -53,258 +53,121 @@ layout: default
         <div class="presentations">
 
           <style>
-            /* Pastel-blue card UI (scoped) */
             .presentations{
               --brand:#2a7ae2;
-              --card-bg:#eef5ff;
-              --card-br:#cfe1ff;
-              --card-shadow:rgba(42,122,226,.09);
-              --chip-bg:#e7f0ff;
-              --chip-br:#c6d8ff;
-              --chip-fg:#1f3b7b;
+              --ink:#123665;
+              --surface:#eef5ff;
+              --border:#cfe1ff;
               --muted:#5976a8;
-              --title:#123665;
+              --shadow:rgba(42,122,226,.09);
+              max-width: 900px;
+              margin: 0 auto;
             }
-            .presentations h2{
-              font-weight:800; margin:2rem 0 1rem;
-              color:#1c3a73;
-              display:flex; align-items:center; gap:.6rem;
-            }
-            .presentations .wrap{ max-width:980px; margin:0 auto; }
 
-            /* card */
-            .talk-card{
-              background:var(--card-bg);
-              border:1px solid var(--card-br);
-              border-radius:16px;
-              box-shadow:0 8px 22px var(--card-shadow);
-              padding:14px 16px;
-              margin:12px 0;
-              transition:border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+            .presentations .talk-list{
+              display: flex;
+              flex-direction: column;
+              gap: 1rem;
+              padding: 0;
+              margin: 0;
+              list-style: none;
             }
-            .talk-card:hover{ border-color:#b9d1ff; box-shadow:0 12px 28px rgba(42,122,226,.14); transform:translateY(-1px); }
 
-            .talk-top{
-              display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; margin-bottom:.35rem;
+            .presentations .talk-card{
+              background: var(--surface);
+              border: 1px solid var(--border);
+              border-radius: 14px;
+              padding: 1.1rem 1.25rem;
+              transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
             }
-            .chip{
-              display:inline-block; font-weight:800; font-size:.78rem;
-              background:var(--chip-bg); color:var(--chip-fg);
-              border:1px solid var(--chip-br); border-radius:999px;
-              padding:.2rem .55rem;
+            .presentations .talk-card:hover{
+              border-color:#b9d1ff;
+              box-shadow: 0 6px 20px var(--shadow);
+              transform: translateY(-1px);
             }
-            .chip.type-oral{ background:#dbe7ff; }
-            .chip.type-poster{ background:#eaf3ff; }
-            .chip.affil{ background:#f0f6ff; font-weight:700; }
 
-            .talk-title{ margin:.2rem 0 .25rem; color:var(--title); line-height:1.35; font-weight:800; }
-            .talk-meta{ color:var(--muted); font-size:.95rem; }
-            .talk-meta strong{ color:#1c2f55; }
+            /* --- Meta row: type · affiliation · time --- */
+            .presentations .talk-meta-top{
+              display: flex;
+              align-items: center;
+              flex-wrap: wrap;
+              gap: .5rem;
+              margin-bottom: .65rem;
+            }
+            .presentations .chip{
+              display: inline-block;
+              font-size: .75rem;
+              font-weight: 700;
+              letter-spacing: .04em;
+              text-transform: uppercase;
+              border-radius: 999px;
+              padding: .22rem .6rem;
+              white-space: nowrap;
+            }
+            .presentations .chip.type-oral{
+              background: var(--brand);
+              color: #fff;
+            }
+            .presentations .chip.type-poster{
+              background: #fff;
+              color: var(--brand);
+              box-shadow: inset 0 0 0 1.5px var(--brand);
+            }
+            .presentations .chip.affil{
+              background: #dbe7ff;
+              color: #1f3b7b;
+              text-transform: none;
+              letter-spacing: .02em;
+            }
+            .presentations .talk-time{
+              margin-left: auto;
+              color: var(--muted);
+              font-size: .88rem;
+              font-weight: 700;
+              white-space: nowrap;
+            }
 
-            @media (max-width:560px){
-              .talk-card{ padding:12px 14px; }
-              .talk-title{ font-size:1rem; }
+            /* --- Title + presenter --- */
+            .presentations .talk-title{
+              margin: 0 0 .5rem;
+              font-size: clamp(1rem, .95rem + .35vw, 1.12rem);
+              font-weight: 700;
+              color: var(--ink);
+              line-height: 1.45;
+            }
+            .presentations .talk-presenter{
+              margin: 0;
+              color: var(--muted);
+              font-size: .93rem;
+            }
+            .presentations .talk-presenter strong{
+              color: #1c2f55;
+              font-weight: 700;
+            }
+
+            @media (max-width: 560px){
+              .presentations .talk-card{ padding: .95rem 1rem; }
+              .presentations .talk-time{
+                margin-left: 0;
+                flex-basis: 100%;
+              }
             }
           </style>
 
-          <div class="wrap">
+          <ul class="talk-list">
+            {% for talk in site.data.presentations %}
+              <li class="talk-card">
+                <div class="talk-meta-top">
+                  <span class="chip type-{{ talk.type | downcase }}">{{ talk.type }}</span>
+                  <span class="chip affil">{{ talk.affiliation }}</span>
+                  <span class="talk-time">{{ talk.time }}</span>
+                </div>
 
-            <!-- ORAL -->
-            <h2>Oral Presentations</h2>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-oral">Oral</span>
-                <span class="chip affil">POSTECH</span>
-              </div>
-              <h3 class="talk-title">Open-domain Multimodal Multihop Retrieval by Late Interactioning in a Bigranular Graph Structure</h3>
-              <div class="talk-meta">Presenter: <strong>Joohyung Yun</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-oral">Oral</span>
-                <span class="chip affil">POSTECH</span>
-              </div>
-              <h3 class="talk-title">Efficient Knowledge Graph Querying via Schema-Driven Approximate Distance Joins</h3>
-              <div class="talk-meta">Presenter: <strong>Sangoh Lee</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-oral">Oral</span>
-                <span class="chip affil">POSTECH</span>
-              </div>
-              <h3 class="talk-title">Benchmark for Multi-hop QA over Text and Tables</h3>
-              <div class="talk-meta">Presenter: <strong>Sungho Park</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-oral">Oral</span>
-                <span class="chip affil">POSTECH</span>
-              </div>
-              <h3 class="talk-title">Cardinality Estimation under Data Updates</h3>
-              <div class="talk-meta">Presenter: <strong>Yukyoung Lee</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-oral">Oral</span>
-                <span class="chip affil">POSTECH</span>
-              </div>
-              <h3 class="talk-title">A Fast Database Replay System</h3>
-              <div class="talk-meta">Presenter: <strong>Wonseok Lee</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-oral">Oral</span>
-                <span class="chip affil">UOsaka</span>
-              </div>
-              <h3 class="talk-title">Verifiable Machine Learning: Bridging the Trust Gap</h3>
-              <div class="talk-meta">Presenter: <strong>Lyu He</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-oral">Oral</span>
-                <span class="chip affil">UOsaka</span>
-              </div>
-              <h3 class="talk-title">Accelerating LocalSearch++ for K-Means++ Clustering with Projection-Based Distance Lower Bounds</h3>
-              <div class="talk-meta">Presenter: <strong>Takahiro Mitani</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-oral">Oral</span>
-                <span class="chip affil">UOsaka</span>
-              </div>
-              <h3 class="talk-title">Knowledge Distillation from Multiple GNNs to a Single MLP: An Approach via Aggregation of Individually Distilled MLPs</h3>
-              <div class="talk-meta">Presenter: <strong>Itsuki Nakayama</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-oral">Oral</span>
-                <span class="chip affil">UOsaka</span>
-              </div>
-              <h3 class="talk-title">Benchmarking Popularity Bias in Recommender Systems: A Comprehensive Evaluation across Diverse Datasets</h3>
-              <div class="talk-meta">Presenter: <strong>Yutaka Kojima</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-oral">Oral</span>
-                <span class="chip affil">UOsaka</span>
-              </div>
-              <h3 class="talk-title">The Hidden Strength of Disagreement: Unraveling the Consensus-diversity Tradeoff in Adaptive Multi-agent Systems</h3>
-              <div class="talk-meta">Presenter: <strong>Zengqing Wu</strong></div>
-            </article>
-
-            <!-- POSTER -->
-            <h2>Poster Presentations</h2>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-poster">Poster</span>
-                <span class="chip affil">POSTECH</span>
-              </div>
-              <h3 class="talk-title">Efficient Execution of AI Operators</h3>
-              <div class="talk-meta">Presenter: <strong>Jaehyun Ha</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-poster">Poster</span>
-                <span class="chip affil">POSTECH</span>
-              </div>
-              <h3 class="talk-title">Comparative Analysis of Cache Replacement Algorithms in Cloud DBMS</h3>
-              <div class="talk-meta">Presenter: <strong>Taejun Yoon</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-poster">Poster</span>
-                <span class="chip affil">POSTECH</span>
-              </div>
-              <h3 class="talk-title">Robust Validation of Machine Unlearning through Query Executions over an Aligned Database</h3>
-              <div class="talk-meta">Presenter: <strong>Jooyoung Lee</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-poster">Poster</span>
-                <span class="chip affil">POSTECH</span>
-              </div>
-              <h3 class="talk-title">Understanding the Behavior of Cross-Modal Embeddings in Vector Search</h3>
-              <div class="talk-meta">Presenter: <strong>Hyojeong Yun</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-poster">Poster</span>
-                <span class="chip affil">POSTECH</span>
-              </div>
-              <h3 class="talk-title">Constructing Text Embedding for Accurate Text Retrieval using LLM</h3>
-              <div class="talk-meta">Presenter: <strong>Seungah Jang</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-poster">Poster</span>
-                <span class="chip affil">UOsaka</span>
-              </div>
-              <h3 class="talk-title">Shortest Distance Queries on Large-Scale Knowledge Graphs by Leveraging Cluster Structures</h3>
-              <div class="talk-meta">Presenter: <strong>Guangcan Li</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-poster">Poster</span>
-                <span class="chip affil">UOsaka</span>
-              </div>
-              <h3 class="talk-title">Language-Specific Scaling Law for Optimal Data Mixture in Multilingual Pre-Training</h3>
-              <div class="talk-meta">Presenter: <strong>Xuyang Cao </strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-poster">Poster</span>
-                <span class="chip affil">UOsaka</span>
-              </div>
-              <h3 class="talk-title">Context-aware Human Trajectory Generation Using Reinforcement Learning</h3>
-              <div class="talk-meta">Presenter: <strong>Mengkun Gao </strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-poster">Poster</span>
-                <span class="chip affil">UOsaka</span>
-              </div>
-              <h3 class="talk-title">Improving the Accuracy of the Classical Chinese Text Retrieval System</h3>
-              <div class="talk-meta">Presenter: <strong>Que Song</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-poster">Poster</span>
-                <span class="chip affil">UOsaka</span>
-              </div>
-              <h3 class="talk-title">Adaptive Select Layer: Automatically Detect the Optimal Attention Layer for Token Selection based on the Input Task</h3>
-              <div class="talk-meta">Presenter: <strong>Rei Taniguchi</strong></div>
-            </article>
-
-            <article class="talk-card">
-              <div class="talk-top">
-                <span class="chip type-poster">Poster</span>
-                <span class="chip affil">UOsaka</span>
-              </div>
-              <h3 class="talk-title">Workload Acceleration by Optimizing Materialized View Selection Using Local Search</h3>
-              <div class="talk-meta">Presenter: <strong>Kaina Anderson</strong></div>
-            </article>
-
-          </div>
+                <h3 class="talk-title">{{ talk.title }}</h3>
+                <p class="talk-presenter">Presenter: <strong>{{ talk.presenter }}</strong></p>
+              </li>
+            {% endfor %}
+          </ul>
 
         </div>
         <!-- ===== /Presentations ===== -->

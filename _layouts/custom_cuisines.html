@@ -49,127 +49,94 @@ layout: default
           </aside>
         {% endif %}
 
-        <!-- ===== Cuisine: 10.24 ===== -->
-        <section class="accom-block" aria-label="Cuisine Information for 10.24">
+        <!-- ===== Cuisines ===== -->
+        <section class="place-block" aria-label="Cuisines">
 
           <style>
-            .accom-block {
-              --hdr: #dbe7ff;
-              --hdr-fg: #163a76;
-              --row: #eef5ff;
-              --br: #cfe1ff;
-              --shadow: rgba(42,122,226,.10);
+            /* Two-column dinner layout, scoped to this page.
+               A grid rather than a table: the two dinners are parallel
+               panels, and a grid fills the container reliably. */
+            .cuisine-grid{
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              gap: 1rem;
+              margin: 0;
+              padding: 0;
+              list-style: none;
             }
-            .accom-block .accom-container {
-              max-width: 980px;
-              margin: 0 auto;
-            }
-            .accom-block h2 {
-              font-weight: 800;
+            .cuisine-col{ margin: 0; }
+
+            .cuisine-day{
+              background: var(--surface-2, #dbe7ff);
+              color: #163a76;
+              font-weight: 700;
               text-align: center;
-              color: var(--mm-primary, #2a7ae2);
-              font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
-              margin: 0 0 .75rem;
-            }
-            .accom-block figure {
-              margin: 0 auto 1rem;
-              width: 50%;
-            }
-            .accom-block figure img {
-              width: 100%;
-              height: auto;
+              padding: .8rem 1rem;
+              border: 1px solid #b8d0ff;
               border-radius: 12px;
+              margin-bottom: .6rem;
+            }
+
+            .cuisine-body{
+              background: var(--surface, #eef5ff);
+              border: 1px solid var(--border, #cfe1ff);
+              border-radius: 12px;
+              padding: 1rem 1.1rem;
+              color: #123665;
+              line-height: 1.6;
+              transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+            }
+            .cuisine-col:hover .cuisine-body{
+              border-color: #b9d1ff;
+              box-shadow: 0 4px 16px rgba(42,122,226,.10);
+              transform: translateY(-1px);
+            }
+
+            .cuisine-body .field-label{
               display: block;
+              font-size: .72rem;
+              font-weight: 700;
+              letter-spacing: .1em;
+              text-transform: uppercase;
+              color: #5976a8;
+              margin-bottom: .2rem;
             }
-            @media (max-width: 640px) {
-              .accom-block figure {
-                width: 100%;
-              }
-            }
-            .accom-block .info,
-            .accom-block .map-embed,
-            .accom-block .table-wrap {
-              margin: 0 auto 1.5rem;
-            }
-            .accom-block .map-embed {
-              border-radius: 12px;
-              overflow: hidden;
-            }
-            .accom-block .map-embed .ratio {
-              position: relative;
-              padding-top: 56.25%;
-            }
-            .accom-block .map-embed iframe {
-              position: absolute;
-              inset: 0;
-              width: 100%;
-              height: 100%;
-              border: 0;
-            }
-            .accom-block h3 {
-              font-weight: 800;
-              margin: 1.75rem 0 .5rem;
-              color: #1f3b7b;
+            .cuisine-body .field-label:not(:first-child){ margin-top: .8rem; }
+
+            @media (max-width: 560px){
+              .cuisine-grid{ grid-template-columns: 1fr; }
             }
           </style>
 
-          <div class="accom-container">
+          <h2 class="place-title">Cuisines</h2>
+          <p class="place-subtitle">Dinner arrangements during the workshop.</p>
 
-            <!-- Title for 10.24 -->
-            <h2>10.24 (Fri)</h2>
-
-            <!-- Small Title for Ilgwang -->
-            <h3>Dinner: Ilgwang</h3>
-
-            <!-- Image -->
-            <figure>
-              <img src="{{ '/assets/images/cuisines/ilgwang.png' | relative_url }}" alt="Ilgwang Restaurant">
-            </figure>
-
-            <!-- Info list -->
-            <div class="info">
-              <ul>
-                <li><strong>When:</strong> 10.24 (Fri), 18:30 ~ 22:00</li>
-                <li><strong>Address:</strong> 12, Haeun-daero 570beon-gil, Haeundae-gu, Busan, Republic of Korea</li>
-                <li><strong>Tel:</strong> +82) 0517430004</li>
-                <li><strong>Getting there:</strong> 20 minute walk from the venue</li>
-              </ul>
-            </div>
-
-            <!-- Map Embed -->
-            <div class="map-embed">
-              <div class="ratio">
-                <iframe
-                  title="Map: Ilgwang"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.846748999222!2d129.15282797726655!3d35.16044257275989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35688d5f4bef5429%3A0x720b2a1d9381b0ab!2z7J286rSR7IiY7IKw7Zqf7KeR!5e0!3m2!1sko!2skr!4v1759203893728!5m2!1sko!2skr"
-                  loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
-                </iframe>
+          <ul class="cuisine-grid">
+            <li class="cuisine-col">
+              <div class="cuisine-day">10/30 (Fri) &mdash; Dinner</div>
+              <div class="cuisine-body">
+                <span class="field-label">Restaurant</span>
+                To be announced
+                <span class="field-label">When</span>
+                To be announced
+                <span class="field-label">Address</span>
+                To be announced
               </div>
-            </div>
+            </li>
 
-          </div>
-        </section>
+            <li class="cuisine-col">
+              <div class="cuisine-day">10/31 (Sat) &mdash; Dinner</div>
+              <div class="cuisine-body">
+                <span class="field-label">Restaurant</span>
+                To be announced
+                <span class="field-label">When</span>
+                To be announced
+                <span class="field-label">Address</span>
+                To be announced
+              </div>
+            </li>
+          </ul>
 
-        <!-- ===== Cuisine: 10.25 ===== -->
-        <section class="accom-block" aria-label="Cuisine Information for 10.25">
-
-          <div class="accom-container">
-
-            <!-- Title for 10.25 -->
-            <h2>10.25 (Sat)</h2>
-
-          </div>
-        </section>
-
-        <!-- ===== Cuisine: 10.26 ===== -->
-        <section class="accom-block" aria-label="Cuisine Information for 10.26">
-
-          <div class="accom-container">
-
-            <!-- Title for 10.26 -->
-            <h2>10.26 (Sun)</h2>
-
-          </div>
         </section>
 
         {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}

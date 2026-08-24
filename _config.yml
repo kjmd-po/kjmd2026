@@ -15,23 +15,23 @@ remote_theme             : "mmistakes/minimal-mistakes"
 minimal_mistakes_skin    : "aqua" # "default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
-locale                   : "ko-KR"
+locale                   : "en-US"
 rtl                      : # true, false (default) # turns direction of the page into right to left for RTL languages
 title                    : "KJMD 2026"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "KJMD 2026"
-description              : "The website for the KJMD 2026 conference."
+description              : "The 8th Joint Korea-Japan Workshop on Management of Data, Yokohama, Japan, October 30 - November 1, 2026."
 url                      : https://kjmd-po.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "/kjmd2026"
 repository               : kjmd-po/kjmd2026 # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
-logo                     : "/assets/images/kjmd_logo.png" # path of logo image to display in the masthead
+logo                     : "/assets/images/logo2026.png" # path of logo image to display in the masthead
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
 breadcrumbs              : true # true, false (default)
 words_per_minute         : 200
 enable_copy_code_button  : # true, false (default)
-copyright                : # "copyright" name, defaults to site.title
+copyright                : "KJMD 2026" # "copyright" name, defaults to site.title
 copyright_url            : # "copyright" URL, defaults to site.url
 comments:
   provider               : # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "giscus", "custom"
@@ -113,10 +113,10 @@ analytics:
 
 # Site Author
 author:
-  name             : "Joohyung Yun"
+  name             : "KJMD 2026"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an **amazing** person."
-  location         : "South Korea "
+  bio              :
+  location         : "Yokohama, Japan"
   email            :
   links:
     - label: "Email"
@@ -159,7 +159,7 @@ footer:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url:
-  since: "2013"
+  since: "2026"
 
 
 # Reading Files
@@ -229,7 +229,7 @@ sass:
 
 # Outputting
 permalink: /:categories/:title/
-timezone: Asia/Seoul # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: Asia/Tokyo # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 
 # Pagination with jekyll-paginate

@@ -1,0 +1,10 @@
+# Keynote speakers.
+# `abstract` and `bio` accept a list of paragraphs.
+- speaker: "To be announced"
+  affiliation: "To be announced"
+  title: "To be announced"
+  photo: # e.g. /assets/images/keynotes/speaker.jpg
+  abstract:
+    - "To be announced."
+  bio:
+    - "To be announced."

@@ -49,401 +49,59 @@ layout: default
           </aside>
         {% endif %}
         
-        <!-- ===== Accommodation: Central Hotel Haeundae ===== -->
-        <section class="accom-block" aria-label="Accommodation">
+        <!-- ===== Accommodation ===== -->
+        <section class="place-block" aria-label="Accommodation">
 
-          <style>
-            /* Palette already used on your site */
-            .accom-block{
-              --hdr:#dbe7ff;        /* header cells */
-              --hdr-fg:#163a76;
-              --row:#eef5ff;        /* body rows */
-              --br:#cfe1ff;
-              --shadow:rgba(42,122,226,.10);
-            }
+          <h2 class="place-title">To be announced</h2>
+          <p class="place-subtitle">Accommodation details will be posted here.</p>
 
-            /* NEW: shared container so everything aligns */
-            .accom-block .accom-container{
-              max-width: 980px;      /* map, tables, list share this width */
-              margin: 0 auto;
-            }
-
-            /* Title */
-            .accom-block h2{
-              font-weight:800; text-align:center; color:var(--mm-primary,#2a7ae2);
-              font-size:clamp(1.75rem,1.2rem + 2vw,2.5rem); margin:0 0 .75rem;
-            }
-
-            /* Image: half the container, centered */
-            .accom-block figure{ margin:0 auto 1rem; width:50%; }
-            .accom-block figure img{ width:100%; height:auto; border-radius:12px; display:block; }
-            @media (max-width:640px){ .accom-block figure{ width:100%; } }
-
-            /* Info list, map, tables should all align to the same container width */
-            .accom-block .info,
-            .accom-block .map-embed,
-            .accom-block .table-wrap{ margin: 0 auto 1.5rem; }
-
-            /* Responsive map with the same width as the container */
-            .accom-block .map-embed{ border-radius:12px; overflow:hidden; }
-            .accom-block .map-embed .ratio{ position:relative; padding-top:56.25%; }
-            .accom-block .map-embed iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
-
-            /* Tables */
-            .accom-block .table-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
-            .accom-block table{ width:100%; table-layout:fixed; border-collapse:separate; border-spacing:0 10px; }
-            .accom-block thead th{
-              background:var(--hdr); color:var(--hdr-fg); font-weight:800;
-              text-align:left; padding:.7rem .9rem; border:1px solid var(--br);
-            }
-            .accom-block thead th:first-child{ border-top-left-radius:12px; border-bottom-left-radius:12px; }
-            .accom-block thead th:last-child { border-top-right-radius:12px; border-bottom-right-radius:12px; }
-            .accom-block tbody td{
-              background:var(--row); border:1px solid var(--br);
-              padding:.75rem .9rem; vertical-align:top;
-              transition:box-shadow .15s ease, border-color .15s ease, transform .15s ease;
-              word-break: break-word;        /* long lists/names won't overflow */
-            }
-            .accom-block tbody tr:hover td{
-              box-shadow:0 4px 16px var(--shadow); border-color:#b9d1ff; transform:translateY(-1px);
-            }
-            .accom-block tbody td:first-child{ border-top-left-radius:12px; border-bottom-left-radius:12px; white-space:nowrap; }
-            .accom-block tbody td:last-child { border-top-right-radius:12px; border-bottom-right-radius:12px; }
-
-            .accom-block h3{ font-weight:800; margin:1.75rem 0 .5rem; color:#1f3b7b; }
-
-            /* center tables horizontally */
-            .accom-block .table-wrap { display: flex; justify-content: center; }
-            .accom-block .table-wrap > table { width: 100%; max-width: 980px; }  /* 원하는 폭으로 조절 */
-
-            /* (선택) 맵/테이블 공통 최대폭을 맞추고 싶다면 같이 지정 */
-            .accom-block .map-embed { max-width: 980px; margin: 0 auto 1.5rem; }
-
-          </style>
-
-          <div class="accom-container">
-
-            <!-- Title -->
-            <h2>Haeundae Marianne Hotel</h2>
-
-            <!-- Image -->
-            <figure>
-              <img src="{{ '/assets/images/marianne.jpg' | relative_url }}" alt="Haeundae Marianne Hotel">
-            </figure>
-
-            <!-- Info list -->
-            <div class="info">
-              <ul>
-                <li><strong>Address:</strong> Busan, Haeundae-gu, Haeundaehaebyeon-ro, 310 마리안느호텔</li>
-                <li><strong>Tel:</strong> +82-51-760-9000</li>
-                <li><strong>Website:</strong> <a href="http://www.mariannehotel.com/" target="_blank" rel="noopener">http://www.mariannehotel.com/</a></li>
-                <li><strong>Getting there:</strong> ~100 m from <em>Haeundae Station</em></li>
-                <li><strong>Check-in / Check-out:</strong> 15:00 / 11:00</li>
-              </ul>
+          <!-- Hotel photo — replace the placeholder with the real photo when available -->
+          <figure>
+            <div class="photo-placeholder">
+              <i class="fas fa-image" aria-hidden="true"></i>
+              <span>Hotel photo to be added</span>
             </div>
+            <!--
+            <img src="{{ '/assets/images/accommodation/hotel.jpg' | relative_url }}"
+                 alt="Conference hotel">
+            -->
+          </figure>
 
-            <!-- Map (same width as container) -->
-            <div class="map-embed">
-              <div class="ratio">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.8031657295373!2d129.1645654!3d35.1615294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35688d67ff8b65a3%3A0x2060ce46c6b14df6!2sHaeundae%20Marianne%20Hotel!5e0!3m2!1sen!2skr!4v1761747003532!5m2!1sen!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-              </div>
-            </div>
+          <ul class="info-grid">
+            <li class="info-item">
+              <span class="info-icon"><i class="fas fa-map-marker-alt" aria-hidden="true"></i></span>
+              <span class="info-body">
+                <span class="info-label">Address</span>
+                <span class="info-value">To be announced</span>
+              </span>
+            </li>
 
-            <!-- Room Assignment (wide) -->
-            <h3>Room Assignment</h3>
-            <div class="table-wrap">
-              <table>
-                <colgroup>
-                  <col style="width:10%">
-                  <col style="width:18%">
-                  <col style="width:18%">
-                  <col style="width:27%">
-                  <col style="width:27%">
-                </colgroup>
-                <thead>
-                  <tr>
-                    <th>Room ID</th>
-                    <th>Room Type</th>
-                    <th>Room Number</th>
-                    <th>Person 1</th>
-                    <th>Person 2</th>
-                  </tr>
-                </thead>
-                <tbody>
+            <li class="info-item">
+              <span class="info-icon"><i class="fas fa-train" aria-hidden="true"></i></span>
+              <span class="info-body">
+                <span class="info-label">Getting there</span>
+                <span class="info-value">To be announced</span>
+              </span>
+            </li>
 
-                  <!-- POSTECH -->
-                  <tr>
-                    <td>1</td>
-                    <td>Double</td>
-                    <td>901</td>
-                    <td>Wook-Shin Han</td>
-                    <td>-</td>
-                  </tr>
-                  <!-- Twin_0 -->
-                  <tr>
-                    <td>2</td>
-                    <td>Twin</td>
-                    <td>401</td>
-                    <td>Joohyung Yun</td>
-                    <td>Taejun Yoon</td>  
-                  </tr>
-                  <!-- Twin_1 -->
-                  <tr>
-                    <td>3</td>
-                    <td>Twin</td>
-                    <td>402</td>
-                    <td>Sangoh Lee</td>
-                    <td>-</td>
-                  </tr>
-                  <!-- Twin_2 -->
-                  <tr>
-                    <td>4</td>
-                    <td>Twin</td>
-                    <td>403</td>
-                    <td>Sungho Park</td>
-                    <td>Jooyoung Lee</td>
-                  </tr>
-                  <!-- Twin_3 -->
-                  <tr>
-                    <td>5</td>
-                    <td>Twin</td>
-                    <td>405</td>
-                    <td>Yukyoung Lee</td>
-                    <td>Hyojeong Yun</td>
-                  </tr>
-                  <!-- Twin_4 -->
-                  <tr>
-                    <td>6</td>
-                    <td>Twin</td>
-                    <td>501</td>
-                    <td>Wonseok Lee</td>
-                    <td>Jaehyun Ha</td>
-                  </tr>
-                  <!-- Twin_5 -->
-                  <tr>
-                    <td>7</td>
-                    <td>Twin</td>
-                    <td>502</td>
-                    <td>Seungah Jang</td>
-                    <td>Jueun Kim</td>
-                  </tr>
-                  
+            <li class="info-item">
+              <span class="info-icon"><i class="fas fa-phone" aria-hidden="true"></i></span>
+              <span class="info-body">
+                <span class="info-label">Tel</span>
+                <span class="info-value">To be announced</span>
+              </span>
+            </li>
 
-                  <!-- UOSAKA -->
-                  <!-- Double_0 -->
-                  <tr>
-                    <td>8</td>
-                    <td>Double</td>
-                    <td>902</td>
-                    <td>Makoto Onizuka</td>
-                    <td>-</td>
-                  </tr>
-                  <!-- Double_1 -->
-                  <tr>
-                    <td>9</td>
-                    <td>Double</td>
-                    <td>1001</td>
-                    <td>Yuya Sasaki</td>
-                    <td>-</td>
-                  </tr>
-                  <!-- Double_2 -->
-                  <!-- <tr>
-                    <td>UOSAKA-Double-2</td>
-                    <td>Chuan Xiao</td>
-                    <td>-</td>
-                  </tr> -->
-                  <!-- Double_3 -->
-                  <tr>
-                    <td>10</td>
-                    <td>Double</td>
-                    <td>1101</td>
-                    <td>Yohanes Yohanie Fridelin Panduman</td>
-                    <td>-</td>
-                  </tr>
-                  <!-- Double_4 -->
-                  <tr>
-                    <td>11</td>
-                    <td>Double</td>
-                    <td>1102</td>
-                    <td>Shuyuan Zheng</td>
-                    <td>-</td>
-                  </tr>
-                  <!-- Double_5 -->
-                  <tr>
-                    <td>12</td>
-                    <td>Double</td>
-                    <td>1201</td>
-                    <td>Ronny Hajoon Ko</td>
-                    <td>-</td>
-                  </tr>
+            <li class="info-item">
+              <span class="info-icon"><i class="fas fa-clock" aria-hidden="true"></i></span>
+              <span class="info-body">
+                <span class="info-label">Check-in / Check-out</span>
+                <span class="info-value">To be announced</span>
+              </span>
+            </li>
+          </ul>
 
-                  <!-- Twin_0 -->
-                  <!-- <tr>
-                    <td>UOSAKA-Twin-0</td>
-                    <td>Wanxuan Wu</td>
-                    <td>-</td>
-                  </tr> -->
-                  <!-- Twin_1 -->
-                  <tr>
-                    <td>13</td>
-                    <td>Twin</td>
-                    <td>504</td>
-                    <td>Guangcan Li</td>
-                    <td>Lyu He</td>
-                  </tr>
-                  <!-- Twin_2 -->
-                  <tr>
-                    <td>14</td>
-                    <td>Twin</td>
-                    <td>601</td>
-                    <td>Xuyang Cao</td>
-                    <td>Mengkun Gao</td>
-                  </tr>
-                  <!-- Twin_3 -->
-                  <tr>
-                    <td>15</td>
-                    <td>Twin</td>
-                    <td>602</td>
-                    <td>Que Song</td>
-                    <td>Haruki Ono </td>
-                  </tr>
-                  <!-- Twin_4 -->
-                  <tr>
-                    <td>16</td>
-                    <td>Twin</td>
-                    <td>603</td>
-                    <td>Rei Taniguchi</td>
-                    <td>Takahiro Mitani</td>
-                  </tr>
-                  <!-- Twin_5 -->
-                  <tr>
-                    <td>17</td>
-                    <td>Twin</td>
-                    <td>604</td>
-                    <td>Itsuki Nakayama</td>
-                    <td>Ryosuke Mizui</td>
-                  </tr>
-                  <!-- Twin_6 -->
-                  <tr>
-                    <td>18</td>
-                    <td>Twin</td>
-                    <td>701</td>
-                    <td>Kaina Anderson</td>
-                    <td>Yutaka Kojima</td>
-                  </tr>
-                  <!-- Twin_7 -->
-                  <tr>
-                    <td>19</td>
-                    <td>Twin</td>
-                    <td>702</td>
-                    <td>Yuzhou Jin</td>
-                    <td>Kenta Fukui</td>
-                  </tr>
-                  <!-- Twin_8 -->
-                  <tr>
-                    <td>20</td>
-                    <td>Twin</td>
-                    <td>703</td>
-                    <td>Zengqing Wu</td>
-                    <td>-</td>
-                  </tr>
-
-                  <!-- Nanyang -->
-                  <!-- Double_0 -->
-                  <tr>
-                    <td>21</td>
-                    <td>Double</td>
-                    <td>1202</td>
-                    <td>Sourav Bhowmick</td>
-                    <td>-</td>
-                  </tr>
-
-                </tbody>
-              </table>
-            </div>
-
-
-            <!-- Car Assignment (wide) -->
-            <!-- <h3>Car Assignment</h3>
-            <div class="table-wrap">
-              <table>
-                <colgroup>
-                  <col style="width:16%">
-                  <col style="width:18%">
-                  <col style="width:66%">
-                </colgroup>
-                <thead>
-                  <tr>
-                    <th>Car ID</th>
-                    <th>Driver</th>
-                    <th>Passengers (list)</th>
-                  </tr>
-                </thead>
-                <tbody>
-
-                  <tr>
-                    <td>C-01</td>
-                    <td>Wook-Shin Han</td>
-                    <td>TBD, TBD, TBD</td>
-                  </tr>
-
-                  <tr>
-                    <td>C-02</td>
-                    <td>Joohyung Yun</td>
-                    <td>TBD, TBD, TBD</td>
-                  </tr>
-
-                  <tr>
-                    <td>C-03</td>
-                    <td>Sangoh Lee</td>
-                    <td>TBD, TBD, TBD</td>
-                  </tr>
-
-                  <tr>
-                    <td>C-04</td>
-                    <td>Yukyoung Lee</td>
-                    <td>TBD, TBD, TBD</td>
-                  </tr>
-
-                  <tr>
-                    <td>C-05</td>
-                    <td>Wonseok Lee</td>
-                    <td>TBD, TBD, TBD</td>
-                  </tr>
-
-                  <tr>
-                    <td>C-06</td>
-                    <td>Taejun Yoon</td>
-                    <td>TBD, TBD, TBD</td>
-                  </tr>
-
-                  <tr>
-                    <td>C-07</td>
-                    <td>Hyojeong Yun</td>
-                    <td>TBD, TBD, TBD</td>
-                  </tr>
-
-                  <tr>
-                    <td>C-08</td>
-                    <td>Seungah Jang</td>
-                    <td>TBD, TBD, TBD</td>
-                  </tr>
-
-                  <tr>
-                    <td>C-09</td>
-                    <td>Jueun Kim</td>
-                    <td>TBD, TBD, TBD</td>
-                  </tr>
-
-                </tbody>
-              </table>
-            </div> -->
-
-          </div>
         </section>
-
-
-
 
         {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
       </section>

@@ -1,0 +1,22 @@
+# Conference officers.
+# `photo` is optional and only rendered for General Chairs.
+general_chairs:
+  - name: "Wook-Shin Han"
+    affiliation: "Pohang University of Science and Technology (POSTECH), Korea"
+    url: "https://wscrony.github.io/"
+    photo: # e.g. /assets/images/officers/han.jpg
+  - name: "Makoto Onizuka"
+    affiliation: "The University of Osaka (UOsaka), Japan"
+    url: "https://www-bigdata.ist.osaka-u.ac.jp/en/onizuka/"
+    photo: /assets/images/dr_onizuka.jpg
+
+organization_chairs:
+  - name: "Taejun Yoon"
+    affiliation: "POSTECH, Korea"
+    url: "https://ytj0604.github.io/"
+  - name: "Sungho Park"
+    affiliation: "POSTECH, Korea"
+    url: "https://pshlego.github.io/"
+  - name: "Zengqing Wu"
+    affiliation: "UOsaka, Japan"
+    url: "https://wuzengqing001225.github.io/"

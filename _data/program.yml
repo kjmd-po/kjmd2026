@@ -1,0 +1,35 @@
+# Program structure, rendered as a single combined table.
+# Each entry is one row. `day` starts a new day group; rows sharing a day
+# are grouped under it automatically.
+- day: "Oct. 30 (Fri)"
+  time: "To be announced"
+  session: "Registration"
+  details: "To be announced"
+
+- day: "Oct. 30 (Fri)"
+  time: "To be announced"
+  session: "Opening"
+  details: "To be announced"
+  highlight: true
+
+- day: "Oct. 30 (Fri)"
+  time: "To be announced"
+  session: "Keynote"
+  details: "To be announced"
+  highlight: true
+
+- day: "Oct. 31 (Sat)"
+  time: "To be announced"
+  session: "Oral"
+  details: "To be announced"
+  highlight: true
+
+- day: "Oct. 31 (Sat)"
+  time: "To be announced"
+  session: "Poster Session"
+  details: "To be announced"
+
+- day: "Nov. 1 (Sun)"
+  time: "To be announced"
+  session: "Closing"
+  details: "To be announced"

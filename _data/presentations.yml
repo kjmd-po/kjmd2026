@@ -1,0 +1,13 @@
+# Presentations. `type` is either "Oral" or "Poster";
+# `affiliation` is either "POSTECH" or "UOsaka".
+- type: "Oral"
+  affiliation: "POSTECH"
+  time: "To be announced"
+  title: "To be announced"
+  presenter: "To be announced"
+
+- type: "Poster"
+  affiliation: "UOsaka"
+  time: "To be announced"
+  title: "To be announced"
+  presenter: "To be announced"

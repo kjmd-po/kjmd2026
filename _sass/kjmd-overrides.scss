@@ -1,0 +1,252 @@
+/* ==========================================================================
+   KJMD site overrides
+   Loaded after the theme so these declarations win.
+   ========================================================================== */
+
+/* --- Shared design tokens (pastel blue palette used across custom layouts) --- */
+:root {
+  --kjmd-brand:      #2a7ae2;
+  --kjmd-ink:        #123665;
+  --kjmd-surface:    #eef5ff;
+  --kjmd-surface-2:  #dbe7ff;
+  --kjmd-border:     #cfe1ff;
+  --kjmd-border-2:   #b8d0ff;
+  --kjmd-muted:      #5976a8;
+  --kjmd-shadow:     rgba(42, 122, 226, 0.10);
+}
+
+/* --- Navigation: the theme hardcodes $sans-serif on the greedy nav.
+       Bring it in line with the rest of the site. --- */
+.greedy-nav,
+.greedy-nav a,
+.greedy-nav .visible-links a,
+.greedy-nav .hidden-links a,
+.dropdown-menu,
+.dropdown-menu a,
+.masthead__menu-item a {
+  font-family: $kjmd-serif;
+}
+
+/* --- Footer: give the page some breathing room and tidy the copyright line --- */
+.page__footer {
+  margin-top: 4.5em;
+  border-top: 1px solid $border-color;
+
+  footer {
+    margin-top: 0;
+    padding: 2.25em 1em 2.5em;
+    text-align: center;
+  }
+}
+
+/* The theme renders an empty .page__footer-follow div; collapse it so it
+   doesn't add stray vertical space above the copyright. */
+.page__footer-follow:empty,
+.page__footer-follow > ul:empty {
+  display: none;
+}
+
+.page__footer-copyright {
+  font-size: $type-size-6;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+
+  .copyright-line {
+    display: block;
+  }
+
+  .copyright-sep {
+    margin: 0 0.5em;
+    opacity: 0.45;
+  }
+}
+
+/* --- Wide pages: no page on this site uses the right sidebar, so let a
+       `classes: wide` page reclaim the space the theme reserves for it.
+       The theme's own .wide rule only zeroes the padding, leaving the
+       width still reduced by the sidebar. --- */
+.wide {
+  .page {
+    @include breakpoint($large) {
+      width: 100%;
+    }
+
+    @include breakpoint($x-large) {
+      width: 100%;
+    }
+  }
+
+  /* Keep the measure readable and hold a gutter at every width. */
+  .page__inner-wrap {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 1.5em;
+    float: none;
+
+    @include breakpoint($medium) {
+      padding-inline: 2em;
+    }
+  }
+}
+
+/* --- Page rhythm: the last block inside a page shouldn't hug the footer --- */
+.page__content {
+  padding-bottom: 1.5rem;
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* The theme's empty page__meta footer leaves a gap on content-only pages. */
+.page__meta:empty {
+  display: none;
+}
+
+
+/* ==========================================================================
+   Shared "place" card UI — Venue, Accommodation and Cuisines
+   ========================================================================== */
+/* Shared "place" card UI — also used by Accommodation and Cuisines */
+.place-block{
+  --brand:#2a7ae2;
+  --ink:#123665;
+  --surface:#eef5ff;
+  --surface-2:#dbe7ff;
+  --border:#cfe1ff;
+  --muted:#5976a8;
+  --shadow:rgba(42,122,226,.10);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.place-block .place-title{
+  margin: 0 0 .35rem;
+  text-align: center;
+  color: var(--brand);
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+.place-block .place-subtitle{
+  margin: 0 0 2rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* Photo (or a placeholder while the photo is pending) */
+.place-block figure{
+  margin: 0 0 1.75rem;
+  width: 100%;
+}
+.place-block figure img{
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  display: block;
+}
+.place-block .photo-placeholder{
+  width: 100%;
+  aspect-ratio: 3 / 1;
+  border-radius: 14px;
+  border: 1px dashed var(--border);
+  background: var(--surface);
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  gap: .5rem;
+  text-align: center;
+  padding: 1rem;
+}
+.place-block .photo-placeholder i{
+  font-size: 1.8rem;
+  opacity: .55;
+}
+.place-block .photo-placeholder span{ font-size: .9rem; }
+
+/* Info grid — replaces the old bullet list */
+.place-block .info-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: .85rem;
+  margin: 0 0 1.75rem;
+  padding: 0;
+  list-style: none;
+}
+.place-block .info-item{
+  display: flex;
+  align-items: flex-start;
+  gap: .85rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: .9rem 1rem;
+}
+.place-block .info-icon{
+  flex: 0 0 34px;
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  background: var(--surface-2);
+  color: var(--brand);
+  display: grid;
+  place-items: center;
+  font-size: .9rem;
+}
+.place-block .info-body{ min-width: 0; }
+.place-block .info-label{
+  display: block;
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .2rem;
+}
+.place-block .info-value{
+  display: block;
+  color: var(--ink);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+.place-block .info-value a{ color: var(--brand); }
+
+/* Map */
+.place-block .map-embed{
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-bottom: 1.25rem;
+}
+.place-block .map-embed .ratio{ position: relative; padding-top: 56.25%; }
+.place-block .map-embed iframe{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; border: 0;
+}
+
+.place-block .map-link{
+  display: flex;
+  justify-content: center;
+}
+.place-block .map-link a{
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  background: var(--brand);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: .92rem;
+  padding: .6rem 1.15rem;
+  border-radius: 999px;
+  transition: background .15s ease, transform .15s ease;
+}
+.place-block .map-link a:hover{
+  background: #1f63c0;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 560px){
+  .place-block .info-grid{ grid-template-columns: 1fr; }
+}
+          

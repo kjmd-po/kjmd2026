@@ -5,5 +5,38 @@ search: false
 
 @charset "utf-8";
 
+/* ==========================================================================
+   Typography — system serif stack.
+   Set before the theme import so these win over the theme's `!default`s.
+   Every family listed ships with a mainstream OS (macOS / Windows / iOS /
+   Android / common Linux), so no webfont request is needed and the page
+   renders in a serif everywhere.
+   ========================================================================== */
+$kjmd-serif:
+  /* macOS / iOS */
+  "Iowan Old Style", "Palatino Linotype", Palatino,
+  /* Windows */
+  "Sitka Text", Cambria, Constantia,
+  /* Cross-platform fallback */
+  Georgia,
+  /* Linux */
+  "URW Palladio L", "Liberation Serif", "DejaVu Serif",
+  /* Japanese / Korean coverage */
+  "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "MS PMincho",
+  "Apple SD Gothic Neo", "Noto Serif CJK JP", "Noto Serif JP",
+  serif;
+
+$serif:               $kjmd-serif;
+$global-font-family:  $kjmd-serif;
+$header-font-family:  $kjmd-serif;
+$caption-font-family: $kjmd-serif;
+
+/* The theme hardcodes $sans-serif-narrow for the masthead, navigation,
+   breadcrumbs and sidebar. Point it at the serif stack so the whole site
+   reads as one typeface. $sans-serif itself stays sans for buttons and
+   form controls, where a UI face is easier to read at small sizes. */
+$sans-serif-narrow:   $kjmd-serif;
+
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
+@import "kjmd-overrides"; // KJMD site overrides

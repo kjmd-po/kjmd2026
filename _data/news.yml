@@ -1,0 +1,6 @@
+# News items shown on the home page.
+# Newest first. `date` drives the <time datetime> attribute,
+# `display` is what the reader actually sees.
+- date: 2026-08-24
+  display: "2026.08.24"
+  text: "The KJMD 2026 website has been launched."

@@ -49,88 +49,112 @@ layout: default
           </aside>
         {% endif %}
 
-        <!-- ===== Pictures: 10.24 ===== -->
-        <section class="accom-block" aria-label="Pictures for 10.24">
+        <!-- ===== Pictures: photo wall ===== -->
+        <section class="photo-wall" aria-label="Photo wall">
 
           <style>
-            .accom-block {
-              --hdr: #dbe7ff;
-              --hdr-fg: #163a76;
-              --row: #eef5ff;
-              --br: #cfe1ff;
-              --shadow: rgba(42,122,226,.10);
-            }
-            .accom-block .accom-container {
-              max-width: 980px;
+            .photo-wall{
+              --brand:#2a7ae2;
+              --surface:#eef5ff;
+              --border:#cfe1ff;
+              --muted:#5976a8;
+              --shadow:rgba(42,122,226,.10);
+              max-width: 1100px;
               margin: 0 auto;
             }
-            .accom-block h2 {
-              font-weight: 800;
-              text-align: center;
-              color: var(--mm-primary, #2a7ae2);
-              font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
-              margin: 0 0 .75rem;
+
+            .photo-wall .wall-grid{
+              display: grid;
+              grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+              gap: 1rem;
+              padding: 0;
+              margin: 0;
+              list-style: none;
             }
-            .accom-block figure {
-              margin: 0 auto 1rem;
-              width: 50%;
+
+            .photo-wall .wall-item{
+              position: relative;
+              margin: 0;
+              border-radius: 14px;
+              overflow: hidden;
+              background: var(--surface);
+              border: 1px solid var(--border);
+              transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
             }
-            .accom-block figure img {
+            .photo-wall .wall-item:hover{
+              border-color:#b9d1ff;
+              box-shadow: 0 8px 24px var(--shadow);
+              transform: translateY(-2px);
+            }
+
+            .photo-wall .wall-frame{
+              display: block;
               width: 100%;
-              height: auto;
-              border-radius: 12px;
+              aspect-ratio: 4 / 3;
+              overflow: hidden;
+            }
+            .photo-wall .wall-frame img{
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
               display: block;
             }
-            @media (max-width: 640px) {
-              .accom-block figure {
-                width: 100%;
+            /* The logo is artwork, not a photo: show it whole, never cropped. */
+            .photo-wall .wall-item.is-logo{
+              background: #fff;
+            }
+            .photo-wall .wall-item.is-logo .wall-frame img{
+              object-fit: contain;
+              padding: 1.25rem;
+            }
+
+            .photo-wall .wall-caption{
+              display: block;
+              padding: .65rem .9rem .8rem;
+              color: var(--muted);
+              font-size: .88rem;
+              line-height: 1.45;
+              text-align: center;
+            }
+
+            .photo-wall .wall-empty{
+              text-align: center;
+              color: var(--muted);
+              background: var(--surface);
+              border: 1px dashed var(--border);
+              border-radius: 14px;
+              padding: 3rem 1.5rem;
+            }
+
+            @media (max-width: 480px){
+              .photo-wall .wall-grid{
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: .75rem;
               }
             }
           </style>
 
-          <div class="accom-container">
+          {% if site.data.pictures and site.data.pictures.size > 0 %}
+            <ul class="wall-grid">
+              {% for pic in site.data.pictures %}
+                <li class="wall-item{% if forloop.first %} is-logo{% endif %}">
+                  <figure style="margin:0;">
+                    <span class="wall-frame">
+                      <img src="{{ pic.src | relative_url }}"
+                           alt="{{ pic.alt | default: 'KJMD 2026 photo' }}"
+                           {% if forloop.first %}loading="eager"{% else %}loading="lazy"{% endif %}>
+                    </span>
+                    {% if pic.caption %}
+                      <figcaption class="wall-caption">{{ pic.caption }}</figcaption>
+                    {% endif %}
+                  </figure>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="wall-empty">Photos will be posted here after the workshop.</p>
+          {% endif %}
 
-            <!-- Title for 10.24 -->
-            <h2>10.24 (Fri)</h2>
-
-            <!-- Image for 10.24 -->
-            <figure>
-              <img src="{{ '/assets/images/10_24/kjmd_logo.png' | relative_url }}" alt="Placeholder Image for 10.24">
-            </figure>
-
-          </div>
-        </section>
-
-        <!-- ===== Pictures: 10.25 ===== -->
-        <section class="accom-block" aria-label="Pictures for 10.25">
-
-          <div class="accom-container">
-
-            <!-- Title for 10.25 -->
-            <h2>10.25 (Sat)</h2>
-
-            <!-- Image for 10.25 -->
-            <figure>
-              <img src="{{ '/assets/images/10_25/kjmd_logo.png' | relative_url }}" alt="Placeholder Image for 10.25">
-            </figure>
-
-          </div>
-        </section>
-
-        <!-- ===== Pictures: 10.26 ===== -->
-        <section class="accom-block" aria-label="Pictures for 10.26">
-
-          <div class="accom-container">
-
-            <!-- Title for 10.26 -->
-            <h2>10.26 (Sun)</h2>
-
-            <!-- Image for 10.26 -->
-            <figure>
-              <img src="{{ '/assets/images/10_26/kjmd_logo.png' | relative_url }}" alt="Placeholder Image for 10.26">
-            </figure>
-
-          </div>
         </section>
 
         {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}

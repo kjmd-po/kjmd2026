@@ -54,212 +54,163 @@ layout: default
         <div class="keynotes">
 
         <style>
-            /* Pastel Blue palette (scoped) */
+            /* Pastel blue palette (scoped) */
             .keynotes{
-            --brand: #2a7ae2;
-            --bg:    #eef5ff;         /* card body */
-            --hdr:   #e7f0ff;         /* header chips / sub headers */
-            --br:    #cfe1ff;         /* borders */
-            --muted: #5976a8;         /* subtle text */
-            --shadow: rgba(42,122,226,.10);
+              --brand:#2a7ae2;
+              --ink:#123665;
+              --surface:#eef5ff;
+              --border:#cfe1ff;
+              --muted:#5976a8;
+              --shadow:rgba(42,122,226,.10);
+              max-width: 900px;
+              margin: 0 auto;
             }
 
-            /* Card */
-            details.kn-card{
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: 16px;
-            box-shadow: 0 8px 22px var(--shadow);
-            margin: 14px 0;
-            overflow: hidden;
-            transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
-            }
-            details.kn-card:hover{
-            box-shadow: 0 12px 32px rgba(42,122,226,.16);
-            border-color: #b9d1ff;
-            }
-            details.kn-card[open]{ transform: translateY(-1px); }
-
-            /* Header row (clickable) */
-            details.kn-card > summary{
-            list-style: none;
-            cursor: pointer;
-            display: grid;
-            align-items: center;
-            padding: 12px 14px;            /* 헤더 상하 여백 살짝 축소 */
-            gap: 12px;
-            grid-template-columns: 110px 1fr 22px; /* 썸네일/본문/토글 살짝 축소 */
-            }
-            details.kn-card > summary::-webkit-details-marker{ display:none; }
-
-            /* Photo (1:1) */
-            .kn-thumb{
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #dfeaff; /* placeholder */
-            box-shadow: inset 0 0 0 1px var(--br);
-            }
-            .kn-thumb img{
-            width:100%; height:100%; object-fit:cover; display:block;
+            .keynotes .kn-item + .kn-item{
+              margin-top: 3.5rem;
+              padding-top: 3rem;
+              border-top: 1px solid var(--border);
             }
 
-            /* Content in header */
-            .keynotes .kn-topline .chip{
-            font-size: .72rem;              /* Keynote 1 배지 */
-            padding: .18rem .5rem;
+            /* --- Header: photo | name + talk title --- */
+            .keynotes .kn-head{
+              display: grid;
+              grid-template-columns: 150px 1fr;
+              gap: 1.5rem;
+              align-items: center;
+              margin-bottom: 2rem;
             }
-            .chip{
-            display:inline-block; font-weight:800; font-size:.8rem;
-            background: var(--hdr); color:#1f3b7b;
-            border:1px solid var(--br); padding:.2rem .55rem; border-radius:999px;
+            .keynotes .kn-photo{
+              width: 150px;
+              aspect-ratio: 1 / 1;
+              border-radius: 14px;
+              overflow: hidden;
+              background: #dfeaff;
+              box-shadow: inset 0 0 0 1px var(--border);
             }
-            .keynotes .chair{                  /* Session Chair */
-            font-size: .85rem;
+            .keynotes .kn-photo img{
+              width: 100%; height: 100%;
+              object-fit: cover; display: block;
             }
-            .keynotes .kn-title{
-            /* h3가 너무 커서 직접 지정: 데스크탑 기준 1.15rem 정도 */
-            font-size: clamp(1rem, 0.9rem + 0.6vw, 1.15rem);
-            line-height: 1.3;
-            }
-            .keynotes .kn-authors{             /* 이름 라인 */
-            font-size: .95rem;
-            font-weight: 600;
-            }
-            .keynotes .kn-affil{               /* 소속 */
-            font-size: .9rem;
-            }
-
-            /* Toggle chevron */
-            .keynotes .kn-toggle{              /* 오른쪽 ▾ 아이콘 */
-            font-size: 16px;
-            }
-            details.kn-card[open] .kn-toggle{ transform: rotate(180deg); }
-
-            /* Body */
-            .kn-extra{
-            border-top: 1px dashed var(--br);
-            background: rgba(255,255,255,.55);
-            padding: 14px 16px 16px;
+            .keynotes .kn-photo.is-empty{
+              display: grid;
+              place-items: center;
+              color: var(--brand);
+              opacity: .55;
+              font-size: 2.5rem;
             }
 
-            /* Sub toggles: Abstract/Bio */
-            details.kn-sub{
-            margin:.35rem 0 .5rem;
-            border:1px solid var(--br);
-            background:#fff;
-            border-radius:12px;
-            overflow:hidden;
+            .keynotes .kn-name{
+              margin: 0;
+              font-size: clamp(1.35rem, 1.15rem + .8vw, 1.7rem);
+              font-weight: 700;
+              color: var(--ink);
+              line-height: 1.25;
             }
-            details.kn-sub > summary{
-            cursor:pointer; list-style:none;
-            background: var(--hdr);
-            display:flex; align-items:center; justify-content:space-between;
-            font-weight:800; color:#1f3b7b;
-            font-size: .95rem;
-            padding: .5rem .7rem;
+            .keynotes .kn-affil{
+              display: block;
+              margin-top: .3rem;
+              color: var(--muted);
+              font-size: .95rem;
+              font-weight: 400;
             }
-            details.kn-sub > summary::-webkit-details-marker{ display:none; }
-            details.kn-sub[open] > summary{ border-bottom:1px solid var(--br); }
-            .sub-arrow{ font-size:16px; opacity:.75; transition:transform .2s ease; }
-            details.kn-sub[open] .sub-arrow{ transform:rotate(180deg); }
-            .kn-sub-body{ 
-                padding:.85rem .95rem; color:#223249;
-                font-size: .95rem;
-                line-height: 1.6;
+            .keynotes .kn-talk{
+              margin: .85rem 0 0;
+              font-size: clamp(1rem, .95rem + .35vw, 1.15rem);
+              font-weight: 400;
+              font-style: italic;
+              color: var(--brand);
+              line-height: 1.4;
             }
 
-            /* Mobile */
-            @media (max-width: 576px){
-            details.kn-card > summary{ grid-template-columns: 1fr; }
-            .kn-toggle{ justify-self:end; }
+            /* --- Abstract / Bio --- */
+            .keynotes .kn-section{ margin-top: 2rem; }
+            .keynotes .kn-section h3{
+              margin: 0 0 .6rem;
+              font-size: .8rem;
+              font-weight: 700;
+              letter-spacing: .14em;
+              text-transform: uppercase;
+              color: var(--muted);
+            }
+            .keynotes .kn-section p{
+              margin: 0 0 1rem;
+              line-height: 1.75;
+              color: #223249;
+              text-align: justify;
+              hyphens: auto;
+            }
+            .keynotes .kn-section p:last-child{ margin-bottom: 0; }
+
+            /* Drop cap on the first paragraph of Abstract and Bio */
+            .keynotes .kn-section p.has-dropcap::first-letter{
+              float: left;
+              font-size: 3.1em;
+              line-height: .82;
+              padding: .06em .09em 0 0;
+              margin-top: .04em;
+              color: var(--brand);
+              font-weight: 700;
+            }
+
+            @media (max-width: 640px){
+              .keynotes .kn-head{
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                text-align: center;
+              }
+              .keynotes .kn-photo{ width: 130px; margin: 0 auto; }
+              .keynotes .kn-section p{ text-align: left; }
+              .keynotes .kn-section p.has-dropcap::first-letter{ font-size: 2.6em; }
             }
         </style>
 
-        <!-- ===== Keynote 1 (예시) ===== -->
-        <details class="kn-card">
-            <summary>
-            <div class="kn-thumb">
-                <img src="{{ '/assets/images/dr_bhowmick.jpg' | relative_url }}" alt="Stratos Idreos">
-            </div>
+        {% for kn in site.data.keynotes %}
+          <article class="kn-item">
 
-            <div>
-                <div class="kn-topline">
-                <span class="chip">Keynote 1</span>
-                <span class="chair">Session Chair: Wook-Shin Han (POSTECH)</span>
+            <header class="kn-head">
+              {% if kn.photo %}
+                <div class="kn-photo">
+                  <img src="{{ kn.photo | relative_url }}" alt="{{ kn.speaker }}" loading="lazy">
                 </div>
-                <h3 class="kn-title">What Can Cognitive Psychology Do For Data Management?</h3>
-                <div class="kn-authors"> Sourav S. Bhowmick <span class="kn-affil">(Nanyang Technological University)</span></div>
-            </div>
-            <div class="kn-toggle" aria-hidden="true">▾</div>
-            </summary>
+              {% else %}
+                <div class="kn-photo is-empty" aria-hidden="true">
+                  <i class="fas fa-user"></i>
+                </div>
+              {% endif %}
 
-            <div class="kn-extra">
-            <details class="kn-sub">
-                <summary>Abstract <span class="sub-arrow" aria-hidden="true">▾</span></summary>
-                <div class="kn-sub-body">
-                Imagine a scenario where we could communicate with a relational query optimizer through messaging platforms like WeChat or WhatsApp, asking questions related to query processing and optimization. If realized, such a tool could prove invaluable in database administration and education, among others. In this talk, we share our ongoing efforts to develop a user-friendly tool, ChatQPT, which facilitates chat- based interactions with a relational query engine (PostgreSQL). We will specifically highlight the complex challenges encountered in addressing this problem and our initial approaches to overcoming them.
-                </div>
-            </details>
+              <div>
+                <h2 class="kn-name">
+                  {{ kn.speaker }}
+                  {% if kn.affiliation %}<span class="kn-affil">{{ kn.affiliation }}</span>{% endif %}
+                </h2>
+                <p class="kn-talk">{{ kn.title }}</p>
+              </div>
+            </header>
 
-            <details class="kn-sub">
-                <summary>Bio <span class="sub-arrow" aria-hidden="true">▾</span></summary>
-                <div class="kn-sub-body">
-                Sourav S. Bhowmick is an Associate Professor in the College of Computing & Data Science (CCDS), Nanyang Technological University, Singapore. His research interests are in data management, human-data interaction, and data analytics. His research has appeared in premium venues such as ACM SIGMOD, VLDB, and VLDB Journal. He is co-recipient of Best Paper Awards in ACM CIKM 2004, ACM BCB 2011, VLDB 2021, and ER 2023. He is also co-recipient of the ACM SIGMOD Research Highlights Award in 2022. Sourav is serving as a member of the SIGMOD Executive Committee, SIGMOD Awards Committee, a regular member of the PVLDB advisory board, and an elected trustee of the VLDB Endowment. He is a co-recipient of several service awards including VLDB Service Award in 2018, Distinguished AE Award in SIGMOD 2021, SIGMOD 2023 and VLDB 2022, and Distinguished Reviewer Award in VLDB 2020, VLDB 2023, and VLDB 2025. He was inducted into Distinguished Members of the ACM in 2020. Sourav is a strong advocate of research that directly or indirectly impacts end users.
-                </div>
-            </details>
-            </div>
-        </details>
+            {% if kn.abstract %}
+              <section class="kn-section">
+                <h3>Abstract</h3>
+                {% for para in kn.abstract %}
+                  <p{% if forloop.first %} class="has-dropcap"{% endif %}>{{ para }}</p>
+                {% endfor %}
+              </section>
+            {% endif %}
 
-        <!-- ===== Keynote 2 (예시) ===== -->
-        <details class="kn-card">
-            <summary>
-            <div class="kn-thumb">
-                <img src="{{ '/assets/images/dr_onizuka.jpg' | relative_url }}" alt="Jane Doe">
-            </div>
+            {% if kn.bio %}
+              <section class="kn-section">
+                <h3>Bio</h3>
+                {% for para in kn.bio %}
+                  <p{% if forloop.first %} class="has-dropcap"{% endif %}>{{ para }}</p>
+                {% endfor %}
+              </section>
+            {% endif %}
 
-            <div>
-                <div class="kn-topline">
-                <span class="chip">Keynote 2</span>
-                <span class="chair">Session Chair: Wook-Shin Han (POSTECH)</span>
-                </div>
-                <h3 class="kn-title"> From Walk-Level GNNs to GraphRAG: Towards Knowledge-Enhanced Graph Intelligence </h3>
-                <div class="kn-authors"> Makoto Onizuka <span class="kn-affil">(Osaka University)</span></div>
-            </div>
-            <div class="kn-toggle" aria-hidden="true">▾</div>
-            </summary>
-
-            <div class="kn-extra">
-            <details class="kn-sub">
-                <summary>Abstract <span class="sub-arrow" aria-hidden="true">▾</span></summary>
-                <div class="kn-sub-body">
-                Graph neural networks (GNNs) have advanced graph representation learning, yet conventional GCN-derived architectures struggle on heterophilous graphs, where nodes with different labels are more likely to connect. In the first part of this talk, we introduce walk-level GNNs, a new paradigm leveraging fine-grained walk-based features. We present the Label Context Classifier (LCC), which captures higher-order label connectivity via multi-walk embeddings, and WalkFusion, which decomposes GNN message passing into five distinct walk channels (self, forward, backward, sibling, guardians) and adaptively fuses them. These methods achieve notable accuracy gains while improving interpretability.
-                </div>
-                <div class="kn-sub-body">
-                In the second part, we turn to Graph Retrieval-Augmented Generation (GraphRAG), an emerging approach that integrates knowledge graphs with large language models (LLMs). GraphRAG addresses two key challenges of LLMs: excessive model size and limited domain-specific knowledge. We describe a pipeline that converts natural-language queries into graph queries, performs Prize-Collecting Steiner Tree (PCST)-based retrieval, and embeds the retrieved results into LLM prompts. We conclude by highlighting open research challenges, including efficient graph retrieval, query optimization, and scalable integration of symbolic and neural reasoning.
-                </div>
-            </details>
-
-            <details class="kn-sub">
-                <summary>Bio <span class="sub-arrow" aria-hidden="true">▾</span></summary>
-                <div class="kn-sub-body">
-                Makoto Onizuka is a Professor (Executive Assistants to the President) at Graduate School of Information Science and Technology, Osaka University. He is the leader of Big data engineering Laboratory and conducts research on graph mining algorithms and AI-driven database query optimization techniques. Prior to joining Osaka University, he worked at Nippon Telegraph and Telephone Corporation (NTT) for more than 20 years being served as a distinguished technical member from 2010 to 2014. He also worked as a visiting scholar at the University of Washington from 2000 to 2001.
-                </div>
-                <div class="kn-sub-body">
-                He developed research prototype systems and some of them were used in production: LiteObject (object-relational main memory database system), XMLToolkit (XML stream engine), CBoC type2 (Common IT Bases over Cloud Computing at NTT), and Grapon (Graph mining techniques). 
-                </div>
-                <div class="kn-sub-body">
-                He serves as Director at the database society of Japan (2024-present), Information Processing Society of Japan (2019-2021), Review Board for PVLDB (2025), Academic committee at Shonan meeting (2016-present), PC co-chair at DASFAA 2024 and KJDB 2024, Workshop co-chair at SIGMOD 2027, Publicity co-chair at MIPR 2021, Workshop co-chair at VLDB 2020, Best demonstration award committee at DASFAA 2010, Best paper award committee at DASFAA 2012 and program committee at international conferences, including VLDB(2024 demonstration track, 2009-2010 industrial track), SIGMOD(2018, 2020, 2027), ICDE(2015 industrial track, 2023 demonstration track), AAAI(2021-2025), NeurIPS(2022-2025), ICLR(2024),  IJCAI(2023-2025),  ICML(2023-2024), ECML(2022, 2024,2025), CIKM(2017-2018,2020-2023), DASFAA(2010-2016,2020-2023, Senior PC 2025).
-                </div>
-            </details>
-            </div>
-        </details>
+          </article>
+        {% endfor %}
 
         </div>
         <!-- ===== /Keynotes ===== -->
-
-
 
         {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
       </section>
