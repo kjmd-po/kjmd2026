@@ -55,7 +55,8 @@ site.update({'data': data, 'static_files': static_files, 'time': '2026-08-24',
 os.makedirs(OUT, exist_ok=True)
 
 # Pre-sanitize every include/layout into a temp tree, then load from there.
-TMP = os.path.join(OUT, '_tpl')
+# Sanitized templates are build scratch; keep them out of the served tree.
+TMP = os.path.join(os.path.dirname(OUT), '_templates')
 for sub in ('_includes','_layouts'):
     for f in glob.glob(os.path.join(ROOT,sub,'**','*'), recursive=True):
         if not os.path.isfile(f): continue
@@ -145,16 +146,20 @@ def render_page(page_file):
 SITE = os.path.join(OUT, baseurl.strip('/')) if baseurl else OUT
 os.makedirs(SITE, exist_ok=True)
 
+# Mirror Jekyll's permalink layout: /venue/ -> venue/index.html, so the
+# links in the nav resolve exactly as they do on the published site.
 pages = [(os.path.join(ROOT,'index.html'), 'index.html')]
 for f in sorted(glob.glob(os.path.join(ROOT,'_pages','*.md'))):
     fm,_ = front_matter(f)
     perm = (fm.get('permalink') or '/').strip('/')
-    pages.append((f, (perm or 'index') + '.html'))
+    pages.append((f, os.path.join(perm, 'index.html') if perm else 'index.html'))
 
 for src, dest in pages:
     try:
         html = render_page(src)
-        io.open(os.path.join(SITE,dest),'w',encoding='utf-8').write(html)
+        dest_path = os.path.join(SITE, dest)
+        os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+        io.open(dest_path,'w',encoding='utf-8').write(html)
         print("OK   ", dest)
     except Exception as e:
         print("FAIL ", dest, type(e).__name__, str(e)[:300])

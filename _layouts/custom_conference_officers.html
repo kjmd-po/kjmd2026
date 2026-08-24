@@ -30,7 +30,7 @@ layout: default
           /* ---- General Chairs ---- */
           .chair {
             display: grid;
-            grid-template-columns: 260px 1fr;
+            grid-template-columns: 200px 1fr;
             gap: 2.5rem;
             align-items: start;
             padding: 2.5rem 0;
@@ -50,10 +50,7 @@ layout: default
             width: 100%; height: 100%;
             object-fit: cover; object-position: center top;
             display: block;
-            filter: grayscale(100%);
-            transition: filter .35s ease;
           }
-          .chair:hover .chair-portrait img { filter: grayscale(0%); }
 
           .chair-portrait.is-empty {
             /* aspect-ratio needs a definite size to resolve on an empty box */
@@ -116,7 +113,7 @@ layout: default
 
           @media (max-width: 700px) {
             .chair { grid-template-columns: 1fr; gap: 1.5rem; }
-            .chair-portrait { max-width: 220px; }
+            .chair-portrait { max-width: 180px; }
           }
 
           /* ---- Organization Chairs ---- */
@@ -124,7 +121,6 @@ layout: default
             margin: 0;
             padding: 0;
             list-style: none;
-            border-top: 1px solid var(--rule);
           }
           .org-item {
             display: grid;

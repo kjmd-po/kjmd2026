@@ -20,7 +20,7 @@ layout: default
           /* Header: portrait | speaker + talk title */
           .kn-head {
             display: grid;
-            grid-template-columns: 260px 1fr;
+            grid-template-columns: 200px 1fr;
             gap: 2.5rem;
             align-items: start;
             margin-bottom: 3rem;
@@ -36,10 +36,7 @@ layout: default
             width: 100%; height: 100%;
             object-fit: cover; object-position: center top;
             display: block;
-            filter: grayscale(100%);
-            transition: filter .35s ease;
           }
-          .keynote:hover .kn-portrait img { filter: grayscale(0%); }
           .kn-portrait.is-empty {
             /* aspect-ratio needs a definite size to resolve on an empty box */
             display: grid;
@@ -127,7 +124,7 @@ layout: default
 
           @media (max-width: 700px) {
             .kn-head { grid-template-columns: 1fr; gap: 1.5rem; }
-            .kn-portrait { max-width: 220px; }
+            .kn-portrait { max-width: 180px; }
             .kn-section p.has-dropcap::first-letter { font-size: 2.8em; }
           }
         </style>

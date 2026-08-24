@@ -99,16 +99,38 @@ button:focus-visible,
 .greedy-nav .visible-links a,
 .masthead__menu-item.has-dropdown .dropdown-toggle {
   position: relative;
-  display: block;
+  /* Flex, not block: the dropdown parents contain a chevron <i> and the
+     plain links don't, which otherwise puts them on different baselines. */
+  display: flex;
+  align-items: center;
   margin: 0;
   padding: 0.5em 1.15em;
   color: var(--ink-soft);
   font-family: $global-font-family;
   font-size: 0.86rem;
   font-weight: 500;
+  line-height: 1.5;
   letter-spacing: 0.01em;
   text-decoration: none;
   transition: color 0.15s ease;
+}
+
+.greedy-nav .visible-links {
+  align-items: flex-start;
+}
+.greedy-nav .visible-links > li {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* The theme's .dropdown-toggle rule wins on specificity and leaves the
+   toggles with no padding, so the plain links ended up taller and their
+   text sat lower. Pin both to the same box. */
+.masthead .greedy-nav .visible-links > li > a,
+.masthead .greedy-nav .visible-links > li > a.dropdown-toggle {
+  padding: 0.5em 1.15em;
+  margin: 0;
+  line-height: 1.5;
 }
 
 .greedy-nav .visible-links a:hover,
@@ -172,7 +194,7 @@ button:focus-visible,
   font-size: 0.62em;
   margin-left: 7px;
   opacity: 0.5;
-  vertical-align: middle;
+  line-height: 1;
 }
 
 /* Hidden-links overflow menu inherits the same treatment. */
