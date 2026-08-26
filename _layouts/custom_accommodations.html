@@ -50,6 +50,24 @@ layout: default
           }
           .place-photo .pending i { opacity: .55; }
 
+          /* Two photos side by side, same scale-not-crop treatment. */
+          .place-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            max-width: 720px;
+            margin: 0 0 3rem;
+          }
+          .place-gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 2px;
+          }
+          @media (max-width: 560px) {
+            .place-gallery { grid-template-columns: 1fr; max-width: 480px; }
+          }
+
           .map {
             margin: 3rem 0 1.5rem;
             border: 1px solid var(--rule);
@@ -78,38 +96,52 @@ layout: default
           .map-link i { font-size: .72em; }
         </style>
 
-        <h2 class="place-name">To be announced</h2>
-        <p class="place-native">Hotel details will be posted here.</p>
+        <h2 class="place-name">JR-East Hotel Mets Yokohama</h2>
+        <p class="place-native">JR東日本ホテルメッツ横浜</p>
 
-        <figure class="place-photo">
-          <div class="pending">
-            <i class="fas fa-camera" aria-hidden="true"></i>
-            <span>Hotel photo to be added</span>
-          </div>
-          <!--
-          <img src="{{ '/assets/images/accommodation/hotel.jpg' | relative_url }}"
-               alt="Conference hotel">
-          -->
-        </figure>
+        <div class="place-gallery">
+          <img src="{{ '/assets/images/hotel_1.jpg' | relative_url }}" alt="JR-East Hotel Mets Yokohama">
+          <img src="{{ '/assets/images/hotel_2.jpg' | relative_url }}" alt="JR-East Hotel Mets Yokohama">
+        </div>
 
         <ul class="kjmd-records">
           <li class="kjmd-record">
             <span class="label">Address</span>
-            <span class="value">To be announced</span>
+            <span class="value">1 Chome-66-9 Tsuruyacho, Kanagawa Ward,<br>Yokohama, Kanagawa 221-0835, Japan</span>
           </li>
           <li class="kjmd-record">
             <span class="label">Getting there</span>
-            <span class="value">To be announced</span>
+            <span class="value">3-minute walk from the North Ticket Gate / Kita-Nishi Exit of Yokohama Station, via Hama Rail Walk</span>
           </li>
           <li class="kjmd-record">
             <span class="label">Tel</span>
-            <span class="value">To be announced</span>
+            <span class="value"><a href="tel:+81453170011">045-317-0011</a></span>
           </li>
           <li class="kjmd-record">
             <span class="label">Check-in / Check-out</span>
-            <span class="value">To be announced</span>
+            <span class="value">15:00 / 11:00</span>
+          </li>
+          <li class="kjmd-record">
+            <span class="label">Website</span>
+            <span class="value"><a href="https://www.hotelmets.jp/yokohama/access.html" target="_blank" rel="noopener">hotelmets.jp/yokohama</a></span>
           </li>
         </ul>
+
+        <div class="map">
+          <div class="ratio">
+            <iframe
+              title="Map: JR-East Hotel Mets Yokohama"
+              src="https://www.google.com/maps?q=1+Chome-66-9+Tsuruyacho%2C+Kanagawa+Ward%2C+Yokohama%2C+Kanagawa+221-0835&output=embed"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+        <a class="map-link"
+           href="https://www.google.com/maps/search/?api=1&query=1+Chome-66-9+Tsuruyacho%2C+Kanagawa+Ward%2C+Yokohama%2C+Kanagawa+221-0835"
+           target="_blank" rel="noopener">
+          Open in Google Maps <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+        </a>
       </section>
     </div>
   </article>
