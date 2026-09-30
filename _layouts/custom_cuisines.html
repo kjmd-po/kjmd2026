@@ -61,7 +61,34 @@ layout: default
           }
           .dinner dd:last-child { margin-bottom: 0; }
 
+          /* Lunch: a slim single row beneath the dinners, so they stay the focus. */
+          .lunch {
+            display: flex;
+            align-items: baseline;
+            gap: 2.5rem;
+            padding: 1.1rem 0;
+            border-top: 1px solid var(--rule);
+            border-bottom: 1px solid var(--rule);
+          }
+          .lunch-day {
+            margin: 0;
+            flex: 0 0 auto;
+            font-size: .95rem;
+            font-weight: 600;
+            color: var(--ink);
+          }
+          .lunch-day .meal {
+            margin-left: .6rem;
+            color: var(--muted);
+            font-size: .7rem;
+            font-weight: 600;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+          }
+          .lunch p { margin: 0; color: var(--ink); line-height: 1.5; }
+
           @media (max-width: 640px) {
+            .lunch { flex-direction: column; gap: .3rem; }
             .dinners { grid-template-columns: 1fr; }
             .dinner:first-child { padding-right: 0; border-bottom: 1px solid var(--rule); }
             .dinner + .dinner { border-left: 0; padding-left: 0; }
@@ -87,6 +114,11 @@ layout: default
             </dl>
           </li>
         </ul>
+
+        <div class="lunch">
+          <h2 class="lunch-day">10/31 (Sat) <span class="meal">Lunch</span></h2>
+          <p>Lunch Box @ TKP Yokohama Conference Center</p>
+        </div>
       </section>
     </div>
   </article>
