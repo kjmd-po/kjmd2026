@@ -138,7 +138,7 @@ layout: default
               <span class="sched-time">{{ row.time }}</span>
               <span class="sched-body">
                 <span class="sched-session">
-                  {%- if row.link and not row.details -%}
+                  {%- if row.link and row.details == nil -%}
                     <a href="{{ row.link | relative_url }}">{{ row.session }}</a>
                   {%- else -%}
                     {{ row.session }}
