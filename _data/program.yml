@@ -16,6 +16,7 @@
 - day: "October 30 (Fri)"
   time: "18:00 – 20:00"
   session: "Welcome Reception"
+  link: /cuisines/
 
 - day: "October 31 (Sat)"
   time: "09:30 – 10:30"
@@ -57,6 +58,7 @@
 - day: "October 31 (Sat)"
   time: "18:00 – 20:00"
   session: "Banquet"
+  link: /cuisines/
 
 - day: "November 1 (Sun)"
   time: "09:30 – 11:20"
