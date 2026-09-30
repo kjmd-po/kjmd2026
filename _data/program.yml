@@ -25,17 +25,23 @@
   highlight: true
 
 - day: "October 31 (Sat)"
-  time: "10:40 – 11:40"
+  time: "10:30 – 10:50"
+  session: "Self Introduction"
+
+- day: "October 31 (Sat)"
+  time: "11:00 – 12:00"
   session: "Oral Session #1"
+  link: /presentations/#oral-session-1
   highlight: true
 
 - day: "October 31 (Sat)"
-  time: "11:40 – 13:00"
+  time: "12:00 – 13:00"
   session: "Lunch Break"
 
 - day: "October 31 (Sat)"
   time: "13:00 – 14:30"
   session: "Poster Session"
+  link: /presentations/#poster-session
   highlight: true
 
 - day: "October 31 (Sat)"
@@ -48,9 +54,14 @@
   details: "On the future of AI database systems"
   highlight: true
 
+- day: "October 31 (Sat)"
+  time: "18:00 – 20:00"
+  session: "Banquet"
+
 - day: "November 1 (Sun)"
   time: "09:30 – 11:20"
   session: "Oral Session #2"
+  link: /presentations/#oral-session-2
   highlight: true
 
 - day: "November 1 (Sun)"

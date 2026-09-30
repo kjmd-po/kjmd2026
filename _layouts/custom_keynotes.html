@@ -114,6 +114,12 @@ layout: default
             color: var(--ink);
           }
 
+          .kn-chair {
+            margin: .9rem 0 0;
+            color: var(--muted);
+            font-size: .85rem;
+          }
+
           /* Abstract / Bio */
           .kn-section { margin-top: 3rem; }
           .kn-section h3 {
@@ -184,7 +190,8 @@ layout: default
                     </span>
                   {% endif %}
                 </h2>
-                <p class="kn-talk">{{ kn.title }}</p>
+                {% if kn.title %}<p class="kn-talk">{{ kn.title }}</p>{% endif %}
+                {% if kn.session_chair %}<p class="kn-chair">Session Chair: {{ kn.session_chair }}</p>{% endif %}
               </div>
             </header>
 

@@ -85,6 +85,11 @@ layout: default
           /* Keynotes and talks are the substance of the day: mark them with
              the accent so the shape of the program is legible at a glance. */
           .sched-row.is-feature .sched-session { color: var(--accent); }
+          .sched-session a {
+            color: inherit;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+          }
 
           /* The detail continues the session label on the same line and in
              the same type, so a keynote reads as one phrase:
@@ -132,7 +137,13 @@ layout: default
             <li class="sched-row{% if row.highlight %} is-feature{% endif %}">
               <span class="sched-time">{{ row.time }}</span>
               <span class="sched-body">
-                <span class="sched-session">{{ row.session }}</span>
+                <span class="sched-session">
+                  {%- if row.link and not row.details -%}
+                    <a href="{{ row.link | relative_url }}">{{ row.session }}</a>
+                  {%- else -%}
+                    {{ row.session }}
+                  {%- endif -%}
+                </span>
                 {%- if row.details -%}
                   <span class="sched-detail">
                     {%- if row.link -%}

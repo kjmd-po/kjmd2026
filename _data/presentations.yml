@@ -1,13 +1,113 @@
 # Presentations. `type` is either "Oral" or "Poster";
 # `affiliation` is either "POSTECH" or "UOsaka".
+# Orals also carry `session` (1 or 2); `time` is optional (posters have none).
 - type: "Oral"
   affiliation: "POSTECH"
-  time: "To be announced"
-  title: "To be announced"
-  presenter: "To be announced"
+  session: 1
+  time: "Oct 31, 11:00 – 11:20"
+  title: "RAISE: Loss-Aware, Direction-Free Retrieval over Hierarchical Documents"
+  presenter: "Joohyung Yun"
+
+- type: "Oral"
+  affiliation: "UOsaka"
+  session: 1
+  time: "Oct 31, 11:20 – 11:40"
+  title: "Sublime: Selecting Subgraph Matching Algorithms via Machine Learning"
+  presenter: "Genryu Kuraya"
+
+- type: "Oral"
+  affiliation: "POSTECH"
+  session: 1
+  time: "Oct 31, 11:40 – 12:00"
+  title: "CADENZA: Compiling Natural-Language Intent into Task-Specific Operator DAGs for Semantic Query Processing"
+  presenter: "Jaehyun Ha"
+
+- type: "Oral"
+  affiliation: "UOsaka"
+  session: 2
+  time: "Nov 1, 09:30 – 09:50"
+  title: "Why Benign Post-Training Induces Safety Gate Collapse"
+  presenter: "Zihan Zhao"
+
+- type: "Oral"
+  affiliation: "POSTECH"
+  session: 2
+  time: "Nov 1, 09:50 – 10:10"
+  title: "AutoSaddler: Automatic Harness Optimization with Durable Updates from Agent Execution Traces"
+  presenter: "Sungho Park"
+
+- type: "Oral"
+  affiliation: "UOsaka"
+  session: 2
+  time: "Nov 1, 10:10 – 10:30"
+  title: "Emergent Language as an Approach to Conscious AI"
+  presenter: "Zengqing Wu"
+
+- type: "Oral"
+  affiliation: "POSTECH"
+  session: 2
+  time: "Nov 1, 10:40 – 11:00"
+  title: "Cache Replacement in Direct-Access Cloud OLAP—An Experimental Comparison and Practical Guidance"
+  presenter: "Taejun Yoon"
+
+- type: "Oral"
+  affiliation: "UOsaka"
+  session: 2
+  time: "Nov 1, 11:00 – 11:20"
+  title: "Random-Walk-Based Cardinality Estimation for Graph Queries with Projection"
+  presenter: "Takaya Miki"
+
+- type: "Poster"
+  affiliation: "POSTECH"
+  title: "CANOPY: Adaptive-Granularity Evidence Compression for Multimodal RAG"
+  presenter: "Hyojeong Yun"
+
+- type: "Poster"
+  affiliation: "POSTECH"
+  title: "TRACE: Table–Text Relationalization and Completion of Evidence for Coverage-Sensitive QA"
+  presenter: "Sunho Cha"
+
+- type: "Poster"
+  affiliation: "POSTECH"
+  title: "Hi-Q: Hierarchical Evidence-guided Query Refinement for Multi-Hop Question Answering"
+  presenter: "Jueun Kim"
+
+- type: "Poster"
+  affiliation: "POSTECH"
+  title: "A Fast Database Replay System with a Fine-Granular Dependency Graph"
+  presenter: "Wonseok Lee"
 
 - type: "Poster"
   affiliation: "UOsaka"
-  time: "To be announced"
-  title: "To be announced"
-  presenter: "To be announced"
+  title: "Context-as-a-Database: Turning LLM Conversation Logs into Reusable Research Memory"
+  presenter: "Kaina Anderson"
+
+- type: "Poster"
+  affiliation: "UOsaka"
+  title: "Schema Optimization for Time-Dependent Workloads via Materialized View Selection"
+  presenter: "Kanji Masuda"
+
+- type: "Poster"
+  affiliation: "UOsaka"
+  title: "Teacher–Tutor–Student Distillation: Morphing Graphs for Accurate MLPs"
+  presenter: "Daito Ochi"
+
+- type: "Poster"
+  affiliation: "UOsaka"
+  title: "zkMPNN: Zero-Knowledge Proofs of Complete Query-Local GNN Inference over Committed Graphs"
+  presenter: "He Lyu"
+
+- type: "Poster"
+  affiliation: "UOsaka"
+  title: "Trajectory Generation in Implicit World Models via Alternative Sampling"
+  presenter: "Mengkun Gao"
+
+- type: "Poster"
+  affiliation: "UOsaka"
+  title: "Online LLM-Guided MARL with Entropy-Triggered Emergent Communication Grounding"
+  presenter: "Zichuan Xu"
+
+- type: "Poster"
+  affiliation: "UOsaka"
+  title: "LLM Agents in Black-Box Auctions"
+  presenter: "Rento Hosokawa"

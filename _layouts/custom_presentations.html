@@ -16,7 +16,7 @@ layout: default
           .talks { margin: 0; }
 
           .talks > h2 {
-            margin: 0 0 1.5rem;
+            margin: 0 0 .5rem;
             padding-bottom: .85rem;
             border-bottom: 1px solid var(--ink);
             font-size: .78rem;
@@ -25,16 +25,17 @@ layout: default
             text-transform: uppercase;
             color: var(--ink);
           }
-          .talks + .talks { margin-top: 4.5rem; }
+          .talks + .talks { margin-top: 3.5rem; }
+          .talks, .talk { scroll-margin-top: 5rem; }
 
           .talk-list { margin: 0 0 1rem; padding: 0; list-style: none; }
 
           .talk {
             display: grid;
             grid-template-columns: 1fr 210px;
-            gap: 1.5rem 2rem;
+            gap: 1rem 2rem;
             align-items: start;
-            padding: 1.6rem 0;
+            padding: .8rem 0;
             border-bottom: 1px solid var(--rule);
             transition: background .15s ease;
           }
@@ -42,15 +43,15 @@ layout: default
 
           .talk-title {
             margin: 0;
-            font-size: 1.08rem;
+            font-size: 1.02rem;
             font-weight: 600;
-            line-height: 1.45;
+            line-height: 1.35;
             letter-spacing: -0.012em;
             color: var(--ink);
             text-wrap: pretty;
           }
           .talk-presenter {
-            margin: .5rem 0 0;
+            margin: .2rem 0 0;
             color: var(--muted);
             font-size: .92rem;
           }
@@ -63,8 +64,8 @@ layout: default
           .talk-meta {
             display: flex;
             flex-direction: column;
-            gap: .3rem;
-            padding-top: .15rem;
+            gap: .1rem;
+            padding-top: .1rem;
             text-align: right;
           }
           .talk-affil {
@@ -99,15 +100,17 @@ layout: default
           <section class="talks">
             <h2>Oral Presentations</h2>
             <ul class="talk-list">
+              {% assign prev_session = "" %}
               {% for talk in orals %}
-                <li class="talk">
+                <li class="talk"{% if talk.session != prev_session %} id="oral-session-{{ talk.session }}"{% endif %}>
+                  {% assign prev_session = talk.session %}
                   <div>
                     <h3 class="talk-title">{{ talk.title }}</h3>
                     <p class="talk-presenter">Presented by <strong>{{ talk.presenter }}</strong></p>
                   </div>
                   <div class="talk-meta">
                     <span class="talk-affil">{{ talk.affiliation }}</span>
-                    <span class="talk-time">{{ talk.time }}</span>
+                    {% if talk.time %}<span class="talk-time">{{ talk.time }}</span>{% endif %}
                   </div>
                 </li>
               {% endfor %}
@@ -116,7 +119,7 @@ layout: default
         {% endif %}
 
         {% if posters.size > 0 %}
-          <section class="talks">
+          <section class="talks" id="poster-session">
             <h2>Poster Presentations</h2>
             <ul class="talk-list">
               {% for talk in posters %}
@@ -127,7 +130,7 @@ layout: default
                   </div>
                   <div class="talk-meta">
                     <span class="talk-affil">{{ talk.affiliation }}</span>
-                    <span class="talk-time">{{ talk.time }}</span>
+                    {% if talk.time %}<span class="talk-time">{{ talk.time }}</span>{% endif %}
                   </div>
                 </li>
               {% endfor %}
