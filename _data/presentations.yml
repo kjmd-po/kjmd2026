@@ -64,11 +64,6 @@
 
 - type: "Poster"
   affiliation: "POSTECH"
-  title: "TRACE: Table–Text Relationalization and Completion of Evidence for Coverage-Sensitive QA"
-  presenter: "Sunho Cha"
-
-- type: "Poster"
-  affiliation: "POSTECH"
   title: "Hi-Q: Hierarchical Evidence-guided Query Refinement for Multi-Hop Question Answering"
   presenter: "Jueun Kim"
 
