@@ -86,7 +86,8 @@ layout: default
             text-transform: uppercase;
           }
           .lunch p { margin: 0; color: var(--ink); font-size: .88rem; line-height: 1.5; }
-          .lunch .lunch-note { margin-top: .25rem; color: var(--muted); font-size: .78rem; }
+
+          .meals-note { margin: 0 0 1rem; color: var(--muted); font-size: .85rem; }
 
           @media (max-width: 640px) {
             .lunch { flex-direction: column; gap: .3rem; }
@@ -95,6 +96,8 @@ layout: default
             .dinner + .dinner { border-left: 0; padding-left: 0; }
           }
         </style>
+
+        <p class="meals-note">Meals will be provided by KJMD 2026 for all registered participants.</p>
 
         <ul class="dinners">
           <li class="dinner">
@@ -118,10 +121,7 @@ layout: default
 
         <div class="lunch">
           <h2 class="lunch-day">10/31 (Sat) <span class="meal">Lunch</span></h2>
-          <div>
-            <p>Lunch Box @ TKP Yokohama Conference Center</p>
-            <p class="lunch-note">Meals will be provided by KJMD 2026 for all registered participants.</p>
-          </div>
+          <p>Lunch Box @ TKP Yokohama Conference Center</p>
         </div>
       </section>
     </div>
