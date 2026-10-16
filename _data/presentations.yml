@@ -12,7 +12,7 @@
   affiliation: "UOsaka"
   session: 1
   time: "Oct 31, 11:20 – 11:40"
-  title: "Sublime: Selecting Subgraph Matching Algorithms via Machine Learning"
+  title: "Pirka: Learning-based Selection of Primitives for Efficient and Robust Subgraph Matching"
   presenter: "Genryu Kuraya"
 
 - type: "Oral"
@@ -40,7 +40,7 @@
   affiliation: "UOsaka"
   session: 2
   time: "Nov 1, 10:10 – 10:30"
-  title: "Emergent Language as an Approach to Conscious AI"
+  title: "Language Models Cannot Tell When a Definition Is Missing"
   presenter: "Zengqing Wu"
 
 - type: "Oral"
@@ -74,7 +74,7 @@
 
 - type: "Poster"
   affiliation: "UOsaka"
-  title: "Context-as-a-Database: Turning LLM Conversation Logs into Reusable Research Memory"
+  title: "Mnemonica: building reusable research memory upon llm conversation logs"
   presenter: "Kaina Anderson"
 
 - type: "Poster"
@@ -84,25 +84,30 @@
 
 - type: "Poster"
   affiliation: "UOsaka"
-  title: "Teacher–Tutor–Student Distillation: Morphing Graphs for Accurate MLPs"
+  title: "DualBridge: Bridging the Gap in GNN-to-MLP Distillation"
   presenter: "Daito Ochi"
 
 - type: "Poster"
   affiliation: "UOsaka"
-  title: "zkMPNN: Zero-Knowledge Proofs of Complete Query-Local GNN Inference over Committed Graphs"
+  title: "zkMPNN: Query-Local Zero-Knowledge Proofs of Complete Message-Passing Inference"
   presenter: "He Lyu"
 
 - type: "Poster"
   affiliation: "UOsaka"
-  title: "Trajectory Generation in Implicit World Models via Alternative Sampling"
+  title: "MotiveMob: Motivation as Semantic Action for Closed-Loop Human Mobility Generation"
   presenter: "Mengkun Gao"
 
 - type: "Poster"
   affiliation: "UOsaka"
-  title: "Online LLM-Guided MARL with Entropy-Triggered Emergent Communication Grounding"
+  title: "ToolBottleneckBench: Measuring Tool-Agent Performance under Controlled Pressures and Fixed Harness Budgets"
   presenter: "Zichuan Xu"
 
 - type: "Poster"
   affiliation: "UOsaka"
-  title: "LLM Agents in Black-Box Auctions"
+  title: "How do LLM Bidders Play Black-Box Auctions?"
   presenter: "Rento Hosokawa"
+
+- type: "Poster"
+  affiliation: "UOsaka"
+  title: "(To be announced)"
+  presenter: "Yutaka Kojima"
