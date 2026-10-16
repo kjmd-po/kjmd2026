@@ -46,14 +46,14 @@
 - type: "Oral"
   affiliation: "POSTECH"
   session: 2
-  time: "Nov 1, 10:40 – 11:00"
+  time: "Nov 1, 10:45 – 11:05"
   title: "Cache Replacement in Direct-Access Cloud OLAP—An Experimental Comparison and Practical Guidance"
   presenter: "Taejun Yoon"
 
 - type: "Oral"
   affiliation: "UOsaka"
   session: 2
-  time: "Nov 1, 11:00 – 11:20"
+  time: "Nov 1, 11:05 – 11:25"
   title: "Random-Walk-Based Cardinality Estimation for Graph Queries with Projection"
   presenter: "Takaya Miki"
 
