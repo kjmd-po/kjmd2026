@@ -58,6 +58,11 @@
   presenter: "Takaya Miki"
 
 - type: "Poster"
+  affiliation: "KAIST"
+  title: "Towards Unified Semantic Engine"
+  presenter: "Prof. Kyoungmin Kim"
+
+- type: "Poster"
   affiliation: "POSTECH"
   title: "CANOPY: Adaptive-Granularity Evidence Compression for Multimodal RAG"
   presenter: "Hyojeong Yun"
